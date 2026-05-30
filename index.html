@@ -3,91 +3,194 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Riddhi — Editorial Portfolio</title>
-  <meta name="description" content="An editorial portfolio. Sound, story, and design — listen." />
+  <title>Riddhi Taunk — UX Design Researcher</title>
+  <meta name="description" content="Riddhi Taunk — UX Design Researcher, UAL London. Community listening, participatory research, tactile design and sensory environments." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="index.html">Riddhi&nbsp;Taunk</a>
+      <a class="brand" href="index.html">Riddhi Taunk<span class="dot">.</span></a>
       <nav class="nav" aria-label="Primary">
-        <a href="index.html" aria-current="page">Home</a>
         <a href="work.html">Work</a>
         <a href="about.html">About</a>
+        <a href="mailto:riddhitaunk35@gmail.com">Contact</a>
       </nav>
+      <span class="header-index">London · 2026</span>
     </div>
   </header>
 
   <main>
     <!-- Hero -->
     <section class="hero">
-      <div class="wrap">
-        <p class="eyebrow">Portfolio — Vol. 01</p>
-        <h1 class="hero__word">listen.</h1>
-        <p class="hero__lede">
-          An editorial practice built on attention — to sound, to story, and to
-          the quiet space between them.
-        </p>
-        <div class="hero__meta">
-          <div>
-            <p class="eyebrow">Discipline</p>
-            <p>Sound &amp; Story</p>
-          </div>
-          <div>
-            <p class="eyebrow">Based in</p>
-            <p>Wherever it's playing</p>
-          </div>
-          <div>
-            <p class="eyebrow">Year</p>
-            <p>2026 —</p>
-          </div>
-        </div>
+      <div class="hero__left">
+        <p class="hero__kicker reveal d1">UX Design Researcher <span aria-hidden="true">—</span> UAL, London</p>
+        <h1 class="hero__title reveal d2">Hi, <span class="accent">I&rsquo;m</span> Riddhi&nbsp;Taunk.</h1>
       </div>
-    </section>
 
-    <!-- Selected work -->
-    <section class="section" id="work">
-      <div class="wrap">
-        <div class="section__head">
-          <h2 class="section__title">Selected Work</h2>
-          <a class="eyebrow" href="work.html">View all →</a>
+      <div class="hero__right reveal d3">
+        <img class="hero__crowd" src="images/crowd-figures.png" alt="Aerial black-and-white photograph of a crowd of people" />
+
+        <!-- Interactive hotspots over figures in the crowd -->
+        <div class="hotspot hotspot--tl" tabindex="0" aria-label="Project: Vocal for Local">
+          <span class="hotspot__pulse" aria-hidden="true"></span>
+          <article class="card">
+            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+            </svg>
+            <p class="card__cat">Community Listening</p>
+            <h3 class="card__title">Vocal for Local</h3>
+            <p class="card__meta">2024 · MIT Alandi, Pune · Group Project</p>
+            <p class="card__text">Street vendors in Pune were quietly losing customers as shopping moved online. Through conversations and market observations, we mapped what that shift actually cost the people living it.</p>
+            <img class="card__img" src="images/vocal-for-local.jpg" alt="Vocal for Local fieldwork" loading="lazy" />
+          </article>
         </div>
 
-        <div class="grid">
-          <a class="project project--wide" href="work.html">
-            <div class="project__media"><span>01</span></div>
-            <div class="project__meta">
-              <h3 class="project__name">Static &amp; Signal</h3>
-              <span class="project__tag">Audio Essay</span>
-            </div>
-          </a>
+        <div class="hotspot hotspot--tr" tabindex="0" aria-label="Project: Physical Ergonomics">
+          <span class="hotspot__pulse" aria-hidden="true"></span>
+          <article class="card">
+            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+            </svg>
+            <p class="card__cat">Tactile Design</p>
+            <h3 class="card__title">Physical Ergonomics</h3>
+            <p class="card__meta">2024 · MIT Alandi, Pune · Group Project</p>
+            <p class="card__text">Garland makers absorb real physical harm from repetitive work. Using RULA and REBA assessments alongside fieldwork, we prototyped a rethought vending stall built around their bodies.</p>
+            <img class="card__img" src="images/physical-ergonomics.jpg" alt="Physical Ergonomics study" loading="lazy" />
+          </article>
+        </div>
 
-          <a class="project" href="work.html">
-            <div class="project__media"><span>02</span></div>
-            <div class="project__meta">
-              <h3 class="project__name">Field Notes</h3>
-              <span class="project__tag">Documentary</span>
-            </div>
-          </a>
+        <div class="hotspot hotspot--cl" tabindex="0" aria-label="Project: Sound as Structure">
+          <span class="hotspot__pulse" aria-hidden="true"></span>
+          <article class="card">
+            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+            </svg>
+            <p class="card__cat">Sensory Environments</p>
+            <h3 class="card__title">Sound as Structure</h3>
+            <p class="card__meta">2025 · UAL London College of Communication · Researcher</p>
+            <p class="card__text">Sound shapes how well people think — but nobody treats it that way. I tracked sound levels across university spaces and visualised what&rsquo;s usually invisible.</p>
+            <img class="card__img" src="images/sound-as-structure.jpg" alt="Sound as Structure research" loading="lazy" />
+          </article>
+        </div>
 
-          <a class="project" href="work.html">
-            <div class="project__media"><span>03</span></div>
-            <div class="project__meta">
-              <h3 class="project__name">Night Frequency</h3>
-              <span class="project__tag">Editorial</span>
-            </div>
-          </a>
+        <div class="hotspot hotspot--br" tabindex="0" aria-label="Project: Making as Enquiry">
+          <span class="hotspot__pulse" aria-hidden="true"></span>
+          <article class="card">
+            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+            </svg>
+            <p class="card__cat">Participatory Research</p>
+            <h3 class="card__title">Making as Enquiry</h3>
+            <p class="card__meta">2026 · UAL London College of Communication · Designer &amp; Researcher</p>
+            <p class="card__text">What if wayfinding worked through touch instead of sight? At Selfridges, I prototyped a tactile navigation system through material experiments and iterative making.</p>
+            <img class="card__img" src="images/making-as-enquiry.jpg" alt="Making as Enquiry prototype" loading="lazy" />
+          </article>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Full-width scrolling ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <div class="ticker__group">
+        <span class="ticker__item">Community Listening</span>
+        <span class="ticker__item">Fieldwork</span>
+        <span class="ticker__item">Participatory Research</span>
+        <span class="ticker__item">Tactile Design</span>
+        <span class="ticker__item">Sensory Environments</span>
+        <span class="ticker__item">Human Behaviour</span>
+      </div>
+      <div class="ticker__group">
+        <span class="ticker__item">Community Listening</span>
+        <span class="ticker__item">Fieldwork</span>
+        <span class="ticker__item">Participatory Research</span>
+        <span class="ticker__item">Tactile Design</span>
+        <span class="ticker__item">Sensory Environments</span>
+        <span class="ticker__item">Human Behaviour</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected work -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="section__title">Selected Work</h2>
+        <a class="label" href="work.html">All projects →</a>
+      </div>
+
+      <div class="grid">
+        <a class="project" href="work.html">
+          <div class="project__media">
+            <span class="project__num">01</span>
+            <img src="https://picsum.photos/seed/vocal-local/900/1120?grayscale" alt="Vocal for Local — community fieldwork" loading="lazy" />
+          </div>
+          <div class="project__body">
+            <span class="project__cat">Community Listening</span>
+            <span class="project__year">2026</span>
+          </div>
+          <h3 class="project__name">Vocal for <span class="accent">Local</span><span class="project__arrow">↗</span></h3>
+        </a>
+
+        <a class="project" href="work.html">
+          <div class="project__media">
+            <span class="project__num">02</span>
+            <img src="https://picsum.photos/seed/ergonomics/900/1120?grayscale" alt="Physical Ergonomics — tactile design study" loading="lazy" />
+          </div>
+          <div class="project__body">
+            <span class="project__cat">Tactile Design · Human Behaviour</span>
+            <span class="project__year">2025</span>
+          </div>
+          <h3 class="project__name">Physical Ergonomics<span class="project__arrow">↗</span></h3>
+        </a>
+
+        <a class="project" href="work.html">
+          <div class="project__media">
+            <span class="project__num">03</span>
+            <img src="https://picsum.photos/seed/sound-structure/900/1120?grayscale" alt="Sound as Structure — sensory environments" loading="lazy" />
+          </div>
+          <div class="project__body">
+            <span class="project__cat">Sensory Environments</span>
+            <span class="project__year">2024</span>
+          </div>
+          <h3 class="project__name">Sound as <span class="accent">Structure</span><span class="project__arrow">↗</span></h3>
+        </a>
+
+        <a class="project" href="work.html">
+          <div class="project__media">
+            <span class="project__num">04</span>
+            <img src="https://picsum.photos/seed/making-enquiry/900/1120?grayscale" alt="Making as Enquiry — participatory research" loading="lazy" />
+          </div>
+          <div class="project__body">
+            <span class="project__cat">Participatory Research · Fieldwork</span>
+            <span class="project__year">2023</span>
+          </div>
+          <h3 class="project__name">Making as <span class="accent">Enquiry</span><span class="project__arrow">↗</span></h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="wrap">
-      <span class="big">Let's listen together.</span>
-      <a class="small" href="mailto:riddhitaunk35@gmail.com">riddhitaunk35@gmail.com</a>
+      <div class="footer-grid">
+        <div>
+          <p class="footer-cta">Let&rsquo;s work together</p>
+          <a class="footer-mail" href="mailto:riddhitaunk35@gmail.com">
+            <span>riddhitaunk35@gmail.com</span>
+          </a>
+        </div>
+        <div class="footer-meta">
+          <p>UX Design Researcher</p>
+          <p>UAL — London, UK</p>
+          <p>© 2026 Riddhi Taunk</p>
+        </div>
+      </div>
     </div>
   </footer>
 </body>
