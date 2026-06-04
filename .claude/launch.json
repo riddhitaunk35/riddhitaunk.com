@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/riddhitaunk/Desktop/portfolio website/.claude/serve.js"],
+      "port": 4321
+    }
+  ]
+}

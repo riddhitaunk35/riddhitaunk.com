@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography — Riddhi Taunk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="image-slot.js"></script>
+  <style>
+    /* ── Page ── */
+    .gallery-page { min-height: 100vh; }
+
+    /* ── Intro ── */
+    .gallery-intro {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: clamp(3rem,8vh,6rem) var(--gutter) clamp(1.5rem,3vh,2.5rem);
+    }
+    .gallery-intro .label { margin-bottom: 1rem; }
+    .gallery-lede {
+      font-family: var(--body);
+      font-size: clamp(1rem,1.5vw,1.2rem);
+      color: var(--muted);
+      margin: 0;
+      max-width: 56ch;
+      line-height: 1.6;
+    }
+
+    /* ── Grid ── matches the header inner frame (RT logo → London 2026):
+       same max-width + horizontal padding so the contact sheet lines up
+       with the intro, footer and the rest of the site. */
+    .gallery-grid {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding-inline: var(--gutter);
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+    }
+
+    .gallery-item {
+      aspect-ratio: 1 / 1;
+      background: #D8D3C4;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* hover: dim everything, highlight the hovered one */
+    .gallery-grid:has(.gallery-item:hover) .gallery-item { opacity: 0.4; }
+    .gallery-grid:has(.gallery-item:hover) .gallery-item:hover {
+      opacity: 1;
+      z-index: 2;
+    }
+    .gallery-grid:has(.gallery-item:hover) .gallery-item:hover image-slot,
+    .gallery-grid:has(.gallery-item:hover) .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item image-slot {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* Empty slots (no image-slot inside) stay grey */
+    .gallery-item--empty { cursor: default; }
+    .gallery-item--empty:hover { transform: none; }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 9000;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+    .lightbox.is-open { display: flex; }
+
+    .lightbox__img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+
+    .lightbox__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      font-family: var(--mono);
+      opacity: 0.7;
+      transition: opacity 0.25s;
+      padding: 0.3rem 0.5rem;
+      line-height: 1;
+    }
+    .lightbox__close:hover { opacity: 1; }
+
+    .lightbox__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--mono);
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 1rem;
+      transition: color 0.25s;
+      line-height: 1;
+    }
+    .lightbox__nav:hover { color: #fff; }
+    .lightbox__prev { left: 1rem; }
+    .lightbox__next { right: 1rem; }
+
+    .lightbox__counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+    }
+
+    /* ── Footer strip ── */
+    .gallery-footer {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: clamp(2rem,4vh,3rem) var(--gutter);
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .gallery-footer a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.3s var(--ease);
+    }
+    .gallery-footer a:hover { color: var(--sage); }
+
+    /* ── Ticker (copied from Chrome.jsx + site.css) ── */
+    .ticker {
+      background: var(--black);
+      color: var(--paper);
+      overflow: hidden;
+      border-block: 1px solid var(--black);
+      padding-block: clamp(1rem, 1.6vw, 1.5rem);
+      user-select: none;
+    }
+    .ticker__track {
+      display: flex;
+      width: max-content;
+      animation: marquee 38s linear infinite;
+    }
+    .ticker:hover .ticker__track { animation-play-state: paused; }
+    .ticker__group { display: flex; flex-shrink: 0; }
+    .ticker__item {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.1rem, 2.6vw, 1.9rem);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      padding-inline: clamp(1rem, 2.2vw, 1.8rem);
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(1rem, 2.2vw, 1.8rem);
+    }
+    .ticker__item::after {
+      content: "✳";
+      font-size: 0.6em;
+      color: #8d877c;
+    }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+  </style>
+  <script src="cursor-trail.js" defer></script>
+</head>
+<body class="gallery-page">
+
+<!-- ── Header ── -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand" style="display:flex;align-items:center;gap:0.6rem;">
+      <img src="logo/green-logo.png" alt="Rt" style="height:44px;width:auto;display:block;">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__link is-active" href="work.html">Work</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+    </nav>
+    <span class="header-index">Photography</span>
+  </div>
+</header>
+
+<!-- ── Intro ── -->
+<section class="gallery-intro">
+  <p class="label">Gallery</p>
+  <p class="gallery-lede" style="max-width: 65ch; font-weight: 400; line-height: 1.65">Beyond work, I love taking pictures of the unnoticed and visiting art galleries.</p>
+</section>
+
+<!-- ── Contact sheet grid ── -->
+<div class="gallery-grid" id="galleryGrid">
+  <!-- 21 slots — drag your photos onto each square -->
+  <div class="gallery-item" data-idx="0"><image-slot id="g01" shape="rect" placeholder="" src="gallery/web/1.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="1"><image-slot id="g02" shape="rect" placeholder="" src="gallery/web/2.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="2"><image-slot id="g03" shape="rect" placeholder="" src="gallery/web/3.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="3"><image-slot id="g04" shape="rect" placeholder="" src="gallery/web/4.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="4"><image-slot id="g05" shape="rect" placeholder="" src="gallery/web/5.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="5"><image-slot id="g06" shape="rect" placeholder="" src="gallery/web/6.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="6"><image-slot id="g07" shape="rect" placeholder="" src="gallery/web/7.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="7"><image-slot id="g08" shape="rect" placeholder="" src="gallery/web/8.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="8"><image-slot id="g09" shape="rect" placeholder="" src="gallery/web/9.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="9"><image-slot id="g10" shape="rect" placeholder="" src="gallery/web/10.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="10"><image-slot id="g11" shape="rect" placeholder="" src="gallery/web/11.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="11"><image-slot id="g12" shape="rect" placeholder="" src="gallery/web/12.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="12"><image-slot id="g13" shape="rect" placeholder="" src="gallery/web/14.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="13"><image-slot id="g14" shape="rect" placeholder="" src="gallery/web/15.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="14"><image-slot id="g15" shape="rect" placeholder="" src="gallery/web/16.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="15"><image-slot id="g16" shape="rect" placeholder="" src="gallery/web/17.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="16"><image-slot id="g17" shape="rect" placeholder="" src="gallery/web/18.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="17"><image-slot id="g18" shape="rect" placeholder="" src="gallery/web/19.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="18"><image-slot id="g19" shape="rect" placeholder="" src="gallery/web/20.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="19"><image-slot id="g20" shape="rect" placeholder="" src="gallery/web/21.jpg"></image-slot></div>
+  <div class="gallery-item" data-idx="20"><image-slot id="g21" shape="rect" placeholder="" src="gallery/web/22.jpg"></image-slot></div>
+</div>
+
+<!-- ── Footer ── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span class="ticker__item">Community Listening</span>
+      <span class="ticker__item">Fieldwork</span>
+      <span class="ticker__item">Embodied Research</span>
+      <span class="ticker__item">Tactile Design</span>
+      <span class="ticker__item">Observations</span>
+      <span class="ticker__item">Human Behaviour</span>
+    </div>
+    <div class="ticker__group">
+      <span class="ticker__item">Community Listening</span>
+      <span class="ticker__item">Fieldwork</span>
+      <span class="ticker__item">Embodied Research</span>
+      <span class="ticker__item">Tactile Design</span>
+      <span class="ticker__item">Observations</span>
+      <span class="ticker__item">Human Behaviour</span>
+    </div>
+  </div>
+</div>
+
+<div class="gallery-footer">
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+  <a href="work.html">← Back to site</a>
+</div>
+
+<!-- ── Lightbox ── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+  <button class="lightbox__close" id="lbClose" aria-label="Close">✕</button>
+  <button class="lightbox__nav lightbox__prev" id="lbPrev" aria-label="Previous">‹</button>
+  <img class="lightbox__img" id="lbImg" alt="" style="display:none;">
+  <button class="lightbox__nav lightbox__next" id="lbNext" aria-label="Next">›</button>
+  <span class="lightbox__counter" id="lbCounter"></span>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lbImg');
+  const lbClose  = document.getElementById('lbClose');
+  const lbPrev   = document.getElementById('lbPrev');
+  const lbNext   = document.getElementById('lbNext');
+  const lbCount  = document.getElementById('lbCounter');
+
+  let currentIdx = 0;
+  let filledSlots = [];
+
+  function getSlotSrc(slotEl) {
+    // Try shadow DOM img first
+    const img = slotEl && slotEl.shadowRoot && slotEl.shadowRoot.querySelector('img[src]');
+    if (img && img.src && !img.src.endsWith('/')) return img.src;
+    // Fallback: src attribute on the slot
+    return slotEl && slotEl.getAttribute('src') || null;
+  }
+
+  function refreshFilledSlots() {
+    filledSlots = [];
+    document.querySelectorAll('.gallery-item').forEach((item, i) => {
+      const slot = item.querySelector('image-slot');
+      const src  = getSlotSrc(slot);
+      if (src) filledSlots.push({ src, item });
+    });
+  }
+
+  function openLightbox(clickedItem) {
+    refreshFilledSlots();
+    // Bind to THIS exact thumbnail by element identity — never a shared/global
+    // index, so thumbnail N always opens image N.
+    const idx = filledSlots.findIndex(s => s.item === clickedItem);
+    if (idx < 0) return; // not a filled photo — leave the grid as-is
+    currentIdx = idx;
+    showLightboxAt(currentIdx);
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLightboxAt(idx) {
+    if (!filledSlots.length) return;
+    currentIdx = (idx + filledSlots.length) % filledSlots.length;
+    lbImg.src = filledSlots[currentIdx].src;
+    lbImg.style.display = '';
+    lbCount.textContent = (currentIdx + 1) + ' / ' + filledSlots.length;
+    lbPrev.style.display = filledSlots.length > 1 ? '' : 'none';
+    lbNext.style.display = filledSlots.length > 1 ? '' : 'none';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+    lbImg.style.display = 'none';
+  }
+
+  // Click items to open lightbox
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      // Don't open if the user is interacting with the slot controls
+      if (e.defaultPrevented) return;
+      const slot = item.querySelector('image-slot');
+      const src  = getSlotSrc(slot);
+      if (!src) return;
+      openLightbox(item);
+    });
+  });
+
+  // Lightbox controls
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => { refreshFilledSlots(); showLightboxAt(currentIdx - 1); });
+  lbNext.addEventListener('click', () => { refreshFilledSlots(); showLightboxAt(currentIdx + 1); });
+
+  // Click outside image to close
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft')  { refreshFilledSlots(); showLightboxAt(currentIdx - 1); }
+    if (e.key === 'ArrowRight') { refreshFilledSlots(); showLightboxAt(currentIdx + 1); }
+  });
+</script>
+</body>
+</html>

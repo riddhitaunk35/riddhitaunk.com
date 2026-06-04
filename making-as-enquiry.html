@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Making as Enquiry - Riddhi Taunk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Page shell (mirrors physical-ergonomics / sound-as-structure) ── */
+    .cs-wrap {
+      max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter);
+      /* transit / wayfinding accent palette */
+      --t-blue: #5b87b0;
+      --t-pink: #b35169;
+      --t-green: #5d8a4d;
+      --t-gold: #d4a93a;
+    }
+    .site-header .wrap { grid-template-columns: auto 1fr auto; }
+
+    /* ── Hero (identical structure to physical-ergonomics) ── */
+    .cs-hero { padding: clamp(3.5rem,9vh,7rem) 0 clamp(2rem,4vh,3.5rem); }
+    .cs-hero-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1.5rem; margin-bottom: clamp(2.5rem,5vh,4rem);
+    }
+    .cs-hero h1 {
+      font-family: var(--serif); font-optical-sizing: auto;
+      font-size: clamp(3.78rem,8vw,8rem); font-weight: 500;
+      letter-spacing: -0.035em; line-height: 0.9;
+      margin: 0 0 clamp(1.2rem,2.5vh,2rem);
+    }
+    .cs-hero h1 em { font-weight: 300; }
+    .cs-hero-lede {
+      font-family: var(--mono);
+      font-size: clamp(1.24rem,1.7vw,1.53rem); line-height: 1.6;
+      color: var(--muted); max-width: 62ch; margin: 0 0 clamp(2rem,4vh,3.5rem);
+    }
+    .cs-meta-strip {
+      display: grid; grid-template-columns: repeat(5,1fr);
+      gap: 0; border-top: 1px solid var(--line-2);
+      padding-top: clamp(1.2rem,2.5vh,2rem); margin-top: clamp(1.2rem,2.5vh,2rem);
+    }
+    .cs-meta-col { padding-right: 1.2rem; }
+    .cs-meta-col + .cs-meta-col { border-left: 1px solid var(--line); padding-left: 1.2rem; }
+    .cs-meta-col .label { margin-bottom: 0.5rem; }
+    .cs-meta-col p { font-family: var(--mono); font-size: 1rem; line-height: 1.45; margin: 0; }
+    .cs-meta-col p .fill { color: var(--line-2); }
+
+    /* ── Case hero image (banner) - matches physical-ergonomics & vocal-for-local ── */
+    .case-hero { max-width: var(--maxw); margin: 0 auto 48px; width: 100%; padding-inline: var(--gutter); }
+    .case-hero img { display: block; width: 100%; height: auto; }
+
+    /* ── Contents ── */
+    .cs-contents { padding: clamp(2rem,4vh,3rem) 0; }
+    .cs-contents-inner { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; align-items: start; padding-top: 1.5rem; }
+    .cs-contents-list { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 3rem; }
+    .cs-contents-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.06rem; break-inside: avoid; }
+    .cs-contents-list a { color: var(--muted); transition: color 0.3s var(--ease); flex: 1; }
+    .cs-contents-list a:hover { color: var(--ink); }
+    .cs-contents-list .num { font-family: var(--mono); font-size: 0.77rem; letter-spacing: 0.18em; color: var(--muted); white-space: nowrap; align-self: center; }
+
+    /* ── Section scaffold (60px left col) ── */
+    .cs-section { padding: 64px 0; }
+    .cs-section-grid { display: grid; grid-template-columns: 60px 1fr; gap: clamp(1.5rem,3vw,3rem); align-items: start; }
+    .cs-section-left { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.25rem; }
+    .cs-section-num { font-family: var(--mono); font-size: 1.89rem; font-weight: 400; color: var(--line-2); line-height: 1; }
+    .cs-section-num.c-blue  { color: var(--t-blue); }
+    .cs-section-num.c-pink  { color: var(--t-pink); }
+    .cs-section-num.c-green { color: var(--t-green); }
+    .cs-section-num.c-gold  { color: var(--t-gold); }
+    .cs-section-cat { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); line-height: 1.4; }
+    .cs-section h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.53rem,2.2vw,2.12rem); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 1.2rem; }
+    .cs-section h2 em { font-weight: 300; }
+    .cs-section p { margin: 0 0 1rem; font-size: 1.18rem; line-height: 1.7; }
+    .cs-section p:last-child { margin-bottom: 0; }
+
+    /* ── Image placeholder slots (dashed, with caption below) ── */
+    .img-ph {
+      background: var(--paper-2);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--muted); padding: 16px; text-align: center;
+      border: 1px dashed var(--line-2);
+      background-image: repeating-linear-gradient(135deg, rgba(20,17,13,0.03) 0 1px, transparent 1px 11px);
+      overflow: hidden; gap: 4px;
+    }
+    .img-ph .ph-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .img-ph .ph-file { font-family: var(--mono); font-size: 0.86rem; letter-spacing: 0.04em; color: var(--ink); }
+    .img-ph .ph-dim { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--line-2); }
+    /* When a real <img> is dropped in, strip the placeholder chrome (add class has-img) */
+    .img-ph.has-img { padding: 0; border: 0; background-image: none; background: var(--paper-2); }
+    .img-ph.has-img img { width: 100%; height: auto; max-width: 100%; display: block; }
+
+    .fig-caption { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0.6rem 0 0; }
+
+    /* Figure layouts */
+    .mae-figblock { margin: 1.6rem 0 0; }
+    .mae-2up { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.6rem 0 0; }
+    .mae-3up { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin: 1.6rem 0 0; }
+    .mae-4up { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin: 1.6rem 0 0; }
+
+    /* ── Pull-quote - large serif, pink left rule ── */
+    .mae-pullquote {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(1.6rem,2.6vw,2.3rem); line-height: 1.3; letter-spacing: -0.02em;
+      border-left: 2px solid var(--t-pink); padding: 0.1rem 0 0.1rem 1.4rem;
+      margin: 1.6rem 0; color: var(--ink); max-width: 26ch;
+    }
+    .mae-pullquote em { font-weight: 300; }
+
+    /* ── How-Might-We block - chosen vs explored ── */
+    .mae-hmw { margin: 1.6rem 0 0; border-top: 1px solid var(--ink); }
+    .mae-hmw-row {
+      display: grid; grid-template-columns: 150px 1fr; gap: 1.4rem;
+      padding: 1rem 0; border-bottom: 1px solid var(--line); align-items: baseline;
+    }
+    .mae-hmw-tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+    .mae-hmw-row.is-chosen .mae-hmw-tag { color: var(--t-green); }
+    .mae-hmw-q { font-family: var(--serif); font-size: clamp(1.2rem,1.7vw,1.45rem); line-height: 1.3; color: var(--muted); }
+    .mae-hmw-row.is-chosen .mae-hmw-q { color: var(--ink); }
+
+    /* ── Note box - tinted callout ── */
+    .mae-note { background: rgba(20,17,13,0.05); padding: 1.1rem 1.3rem; margin: 1.6rem 0 0; }
+    .mae-note .mae-note-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.5rem; }
+    .mae-note .mae-note-body { font-family: var(--mono); font-size: 1.05rem; line-height: 1.65; color: var(--ink); margin: 0; }
+
+    /* ── Destination grid - 2-col cards ── */
+    .mae-dest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.8rem 0 0; }
+    .mae-dest-card { border-top: 2px solid var(--ink); padding-top: 1rem; }
+    .mae-dest-card.is-blue  { border-top-color: var(--t-blue); }
+    .mae-dest-card.is-pink  { border-top-color: var(--t-pink); }
+    .mae-dest-card.is-green { border-top-color: var(--t-green); }
+    .mae-dest-card.is-gold  { border-top-color: var(--t-gold); }
+    .mae-dest-tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 0.6rem; }
+    .mae-dest-card.is-blue  .mae-dest-tag { color: var(--t-blue); }
+    .mae-dest-card.is-pink  .mae-dest-tag { color: var(--t-pink); }
+    .mae-dest-card.is-green .mae-dest-tag { color: var(--t-green); }
+    .mae-dest-card.is-gold  .mae-dest-tag { color: var(--t-gold); }
+    .mae-dest-card h3 { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; line-height: 1.2; margin: 0 0 0.6rem; }
+    .mae-dest-card .mae-dest-body { font-family: var(--mono); font-size: 0.98rem; line-height: 1.55; color: var(--muted); margin: 0 0 1rem; }
+    .mae-dest-card .img-ph { aspect-ratio: 1; }
+
+    /* role / aside note line */
+    .mae-rolenote { font-family: var(--mono); font-size: 0.98rem; line-height: 1.6; color: var(--muted); margin: 1.2rem 0 0; }
+
+    /* ── Feedback strip - 3 coloured cells ── */
+    .mae-feedback { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.8rem 0 0; }
+    .mae-fb-cell { padding: 1.3rem 1.2rem; color: var(--paper); display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+    .mae-fb-cell.is-blue  { background: var(--t-blue); }
+    .mae-fb-cell.is-pink  { background: var(--t-pink); }
+    .mae-fb-cell.is-green { background: var(--t-green); }
+    .mae-fb-quote { font-family: var(--serif); font-size: 1.12rem; line-height: 1.35; margin: 0; }
+    .mae-fb-attr { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.88; margin: 0; }
+
+    /* ── Footer nav (identical to physical-ergonomics) ── */
+    .cs-footer-nav { border-top: 1px solid var(--line-2); padding: 2.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
+    .cs-footer-nav a { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); transition: color 0.3s var(--ease); }
+    .cs-footer-nav a:hover { color: var(--ink); }
+    .cs-footer-prev .label, .cs-footer-next .label { margin-bottom: 0.3rem; }
+    .cs-footer-prev a.cs-foot-title, .cs-footer-next a.cs-foot-title {
+      font-family: var(--serif); font-size: 1.18rem; font-weight: 500;
+      text-transform: none; letter-spacing: 0; color: var(--ink);
+    }
+    .cs-footer-next { text-align: right; }
+
+    @media (max-width: 768px) {
+      .cs-section-grid { grid-template-columns: 1fr; }
+      .cs-section-left { flex-direction: row; gap: 1rem; align-items: center; }
+      .cs-section-num { font-size: 1.18rem; }
+      .cs-meta-strip { grid-template-columns: 1fr 1fr; gap: 1rem 0; }
+      .cs-meta-col { border-left: 0 !important; padding-left: 0 !important; }
+      .cs-contents-list { columns: 1; }
+      .mae-2up, .mae-3up, .mae-4up, .mae-dest-grid, .mae-feedback { grid-template-columns: 1fr; }
+      .mae-hmw-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+
+    /* ── Ticker ── */
+    .ticker {
+      background: var(--black); color: var(--paper); overflow: hidden;
+      border-block: 1px solid var(--black);
+      padding-block: clamp(1rem, 1.6vw, 1.5rem); user-select: none;
+    }
+    .ticker__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .ticker:hover .ticker__track { animation-play-state: paused; }
+    .ticker__group { display: flex; flex-shrink: 0; }
+    .ticker__item {
+      font-family: var(--serif); font-weight: 500;
+      font-size: clamp(1.1rem, 2.6vw, 1.9rem); letter-spacing: -0.01em;
+      white-space: nowrap; padding-inline: clamp(1rem, 2.2vw, 1.8rem);
+      display: inline-flex; align-items: center; gap: clamp(1rem, 2.2vw, 1.8rem);
+    }
+    .ticker__item::after { content: "✳"; font-size: 0.6em; color: #8d877c; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ── PART A · 3-role type system ───────────────────────────────
+       Body (all paragraph text + quotes) → Times. Headings stay
+       Fraunces, labels/eyebrows/numbers stay IBM Plex Mono. */
+    .cs-hero-lede,
+    .cs-meta-col p,
+    .mae-pullquote,
+    .mae-hmw-q,
+    .mae-note .mae-note-body,
+    .mae-dest-card .mae-dest-body,
+    .mae-rolenote,
+    .mae-fb-quote { font-family: var(--body); }
+  </style>
+  <script src="cursor-trail.js" defer></script>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand" style="display:flex;align-items:center;gap:0.6rem;">
+      <img src="logo/green-logo.png" alt="Rt" style="height:44px;width:auto;display:block;">
+    </a>
+    <nav class="nav">
+      <a class="nav__link is-active" href="work.html">Work</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+    </nav>
+    <span class="header-index">Project 04 / Design Research</span>
+  </div>
+</header>
+
+<!-- ── Banner ── -->
+<figure class="case-hero">
+  <img src="images/mae-banner.jpg" alt="Colour-coded tactile wayfinding navigation lines branching toward each destination" loading="lazy" decoding="async" style="object-fit:cover;">
+</figure>
+
+<main>
+<div class="cs-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="cs-hero">
+    <div class="cs-hero-top">
+      <span class="label">Making as Enquiry</span>
+      <span class="label">UAL LCC · London</span>
+    </div>
+    <h1>Making as <em>Enquiry.</em></h1>
+    <p class="cs-hero-lede">A speculative tactile wayfinding system that started with getting lost.</p>
+    <div class="cs-meta-strip">
+      <div class="cs-meta-col">
+        <p class="label">Role</p>
+        <p>Observation, Field Work, Prototyping, Iterations, User Testing</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Type</p>
+        <p>Speculative UX,<br>physical prototyping</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Context</p>
+        <p>UAL LCC,<br>BA UXD Y2</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Team</p>
+        <p>Group of 5</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Tools</p>
+        <p>Figma, Illustrator,<br>laser cutting, 3D printing, Arduino</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ── CONTENTS ── -->
+  <nav class="cs-contents">
+    <div class="cs-contents-inner">
+      <p class="label">Contents</p>
+      <ol class="cs-contents-list">
+        <li><a href="#s01">The enquiry</a><span class="num">01</span></li>
+        <li><a href="#s02">What the observation surfaced</a><span class="num">02</span></li>
+        <li><a href="#s03">Getting lost</a><span class="num">03</span></li>
+        <li><a href="#s04">Keeping options open</a><span class="num">04</span></li>
+        <li><a href="#s05">What didn&rsquo;t work</a><span class="num">05</span></li>
+        <li><a href="#s06">Committing to navigation</a><span class="num">06</span></li>
+        <li><a href="#s07">Testing the line</a><span class="num">07</span></li>
+        <li><a href="#s08">Designing for each destination</a><span class="num">08</span></li>
+        <li><a href="#s09">Building it</a><span class="num">09</span></li>
+        <li><a href="#s10">The outcome</a><span class="num">10</span></li>
+        <li><a href="#s11">Reflection</a><span class="num">11</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── S01 ── -->
+  <hr class="rule">
+  <section id="s01" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-blue">01</span>
+        <span class="cs-section-cat">Context</span>
+      </div>
+      <div>
+        <h2>The enquiry, with no <em>outcome in mind.</em></h2>
+        <p>The brief asked us to take an everyday interaction and reimagine it through making - using making itself as a method of enquiry rather than a route to a fixed answer. The approach drew on Schön&rsquo;s idea of reflection-in-action: decisions made by engaging with materials and people, not by planning in advance.</p>
+        <p>We started with no outcome in mind. We went into Selfridges and watched how people actually move through the beauty floor, grouping what we saw into three kinds of interaction - human, tech, and sensory - and researching each one to understand what made it work or fail.</p>
+        <div class="mae-2up">
+          <figure>
+            <img src="images/mae-selfridges-grid.jpg" alt="Self-ethnographic documentation across the Selfridges beauty floor" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Self-ethnographic documentation across the beauty floor</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-research-boards.jpg" alt="Research boards mapping human, tech, and sensory interactions" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Mapping interactions: human, tech, sensory</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S02 ── -->
+  <hr class="rule">
+  <section id="s02" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-pink">02</span>
+        <span class="cs-section-cat">Findings</span>
+      </div>
+      <div>
+        <h2>What the observation <em>surfaced.</em></h2>
+        <p>Documenting the floor through self-ethnography and observation surfaced three recurring frictions: product information that was hard to decode, fragile displays that made people anxious to touch, and an overwhelming amount of choice that stalled decisions.</p>
+        <div class="mae-3up">
+          <figure>
+            <img src="images/mae-find-info.jpg" alt="Field finding: product information clarity on the beauty floor" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Product information clarity</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-find-fragility.jpg" alt="Field finding: fragile product displays on the beauty floor" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Product display fragility</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-find-decision.jpg" alt="Field finding: overwhelming choice and decision complexity" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Decision-making complexity</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S03 ── -->
+  <hr class="rule">
+  <section id="s03" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-green">03</span>
+        <span class="cs-section-cat">The pivot</span>
+      </div>
+      <div>
+        <h2>Getting <em>lost.</em></h2>
+        <p>The turn was almost accidental. We went to try Click &amp; Collect - an interaction we&rsquo;d already been circling - and couldn&rsquo;t find it. A staff member sent us to the first floor; there was no signage or map; we asked again and were finally pointed to the lower ground floor.</p>
+        <p class="mae-pullquote">This simple confusion became our biggest insight.</p>
+        <p>That moment of getting lost, not any product, became the biggest insight. Customer experience reaches beyond the products on a counter into spatial navigation and the guidance people rely on to move through a space.</p>
+        <figure class="mae-figblock">
+          <img src="images/mae-click-collect-map.jpg" alt="Selfridges floor map with Click and Collect location highlighted" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <figcaption class="fig-caption">Conflicting directions to one location</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S04 ── -->
+  <hr class="rule">
+  <section id="s04" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-gold">04</span>
+        <span class="cs-section-cat">Ideation</span>
+      </div>
+      <div>
+        <h2>Keeping options <em>open.</em></h2>
+        <p>Rather than narrow too early, we mapped every friction we&rsquo;d found in a shared board - unclear product language, fragile displays, overwhelming choice, confusing layouts - and deliberately kept our options open to see which problem sparked the most energy before committing. My own contribution centred on the self-ethnographic research and several of the early interaction ideas.</p>
+        <div class="mae-hmw">
+          <div class="mae-hmw-row is-chosen">
+            <span class="mae-hmw-tag">Chosen ↓</span>
+            <span class="mae-hmw-q">How might we design navigation and wayfinding for clearer, more inclusive movement through a space?</span>
+          </div>
+          <div class="mae-hmw-row">
+            <span class="mae-hmw-tag">Explored</span>
+            <span class="mae-hmw-q">How might we improve the clarity of product information?</span>
+          </div>
+          <div class="mae-hmw-row">
+            <span class="mae-hmw-tag">Explored</span>
+            <span class="mae-hmw-q">How might we make interaction with fragile displays feel safe?</span>
+          </div>
+        </div>
+        <figure class="mae-figblock">
+          <img src="images/mae-ideation-board.jpg" alt="Shared ideation board keeping the problem space open" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <figcaption class="fig-caption">Keeping the problem space open</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S05 ── -->
+  <hr class="rule">
+  <section id="s05" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-blue">05</span>
+        <span class="cs-section-cat">First prototype</span>
+      </div>
+      <div>
+        <h2>What didn&rsquo;t <em>work.</em></h2>
+        <p>Our first prototype, Guess Who, tried to tackle the beauty language barrier by turning product-vs-customer vocabulary into a yes/no guessing game between shopper and advisor.</p>
+        <p>Testing showed the opposite of what we wanted: the rules added cognitive load instead of reducing it. The failure was productive - it told us simplicity and familiarity mattered more than novelty, and our tutor pointed out that navigation offered far more room for enquiry.</p>
+        <div class="mae-note">
+          <p class="mae-note-label">What the failure taught us</p>
+          <p class="mae-note-body">Clarity for the designer isn&rsquo;t clarity for the user.</p>
+        </div>
+        <figure class="mae-figblock">
+          <img src="images/mae-guess-who.jpg" alt="Guess Who cardboard prototype - tested and dropped" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <figcaption class="fig-caption">Guess Who - tested, and dropped</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S06 ── -->
+  <hr class="rule">
+  <section id="s06" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-pink">06</span>
+        <span class="cs-section-cat">Direction</span>
+      </div>
+      <div>
+        <h2>Committing to <em>navigation.</em></h2>
+        <p>Navigation pulled together the Click &amp; Collect insight and the tutor&rsquo;s steer. We took inspiration from the tactile guiding paths used by blind and low-vision people and adapted them for everyone: a continuous navigation line that uses pattern, texture, and colour, with a unique pattern per destination.</p>
+        <p>To test the existing baseline, we ran an observational study on the third floor of the Design Block, asking a user to find the toilet using current signage. She took several confusing turns, couldn&rsquo;t read the route, and eventually gave up.</p>
+        <div class="mae-2up">
+          <figure>
+            <img src="images/mae-wayfinding-sketch.jpg" alt="Early wayfinding concept sketch" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Early wayfinding sketch</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-designblock-study.jpg" alt="Baseline observational study: existing Design Block signage failing the user" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Baseline study: existing signage failed the user</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S07 ── -->
+  <hr class="rule">
+  <section id="s07" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-green">07</span>
+        <span class="cs-section-cat">Audit</span>
+      </div>
+      <div>
+        <h2>Testing the <em>line.</em></h2>
+        <p>We taped a low-fidelity navigation line along the walls and around doorways and tested it with the same user. She moved faster and more confidently, with noticeably less hesitation. Her suggestion - that the line should continue across the floor at a doorway and match the door&rsquo;s colour - fed straight into the next iteration.</p>
+        <figure class="mae-figblock">
+          <img src="images/mae-line-test.jpg" alt="Low-fidelity tape-line wall test with user following the navigation line" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <figcaption class="fig-caption">Low-fi line test - hesitation dropped</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S08 ── -->
+  <hr class="rule">
+  <section id="s08" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-gold">08</span>
+        <span class="cs-section-cat">Making</span>
+      </div>
+      <div>
+        <h2>Designing for each <em>destination.</em></h2>
+        <p>An inspiration board pulled together sensory and interaction-based references, and early testing asked a blunt question: could material, shape, and sound explain a destination without any text? Users leaned on touch and sound to make sense of the objects, and small material changes made a big difference to how intentional each one felt. From there we designed destination by destination.</p>
+        <div class="mae-2up">
+          <figure>
+            <img src="images/mae-inspiration-board.jpg" alt="Sensory and interaction-based inspiration references" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Sensory + interaction references</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-sensory-testing.jpg" alt="Early sensory material testing - can material and sound stand in for text?" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Can material and sound stand in for text?</figcaption>
+          </figure>
+        </div>
+        <div class="mae-dest-grid">
+          <div class="mae-dest-card is-blue">
+            <p class="mae-dest-tag">WC</p>
+            <h3>Blue reads as water</h3>
+            <p class="mae-dest-body">Rotating blue-and-white balls; turned up blue they read as water, and water reads as the toilets. Grew out of an earlier water-flow puzzle.</p>
+            <img src="images/mae-nav-wc.jpg" alt="Blue and white rotating balls signifying water for the WC destination" loading="lazy" style="width:600px;height:800px;object-fit:cover;display:block;">
+          </div>
+          <div class="mae-dest-card is-green">
+            <p class="mae-dest-tag">Library</p>
+            <h3>Books you read in order</h3>
+            <p class="mae-dest-body">Stacked acrylic-and-wood &ldquo;books&rdquo; with embossed letters and laser-cut directional arrows, read in alphabetical order.</p>
+            <img src="images/mae-nav-library.jpg" alt="Acrylic and wood book tiles with embossed letters for the Library destination" loading="lazy" style="width:600px;height:800px;object-fit:cover;display:block;">
+          </div>
+          <div class="mae-dest-card is-pink">
+            <p class="mae-dest-tag">Café</p>
+            <h3>Beans that rustle</h3>
+            <p class="mae-dest-body">3D-printed coffee beans filled with lentils so they rustle like a real café when rotated.</p>
+            <img src="images/mae-nav-cafe.jpg" alt="3D-printed coffee beans filled with lentils for the Cafe destination" loading="lazy" style="width: 600px; height: 800px; object-fit: cover; display: block">
+          </div>
+          <div class="mae-dest-card is-gold">
+            <p class="mae-dest-tag">Lift</p>
+            <h3>Follow the light</h3>
+            <p class="mae-dest-body">Arduino push-buttons with sequential lights; press one and the next lights up, so you &ldquo;follow the light.&rdquo;</p>
+            <img src="images/mae-nav-lift.jpg" alt="Arduino push-buttons with sequential LEDs for the Lift destination" loading="lazy" style="width: 600px; height: 800px; object-fit: cover; display: block">
+          </div>
+        </div>
+        <p class="mae-rolenote">I worked out the box dimensions for the build; my teammate, who codes, solved the lift&rsquo;s interaction flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S09 ── -->
+  <hr class="rule">
+  <section id="s09" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-blue">09</span>
+        <span class="cs-section-cat">Fabrication</span>
+      </div>
+      <div>
+        <h2>Building <em>it.</em></h2>
+        <p>A cardboard prototype let us test the whole system at presentation, but the material was unstable - wiring worked loose, tape failed, and elements detached under pressure. It made the lesson concrete: material choice drives usability, durability, and user confidence. Tutors found it fun and interactive, loved the rustling coffee beans, and pushed us to build it properly.</p>
+        <p>For the final build we learned laser cutting and rebuilt the design in Illustrator. The laser&rsquo;s slight offset meant the box joints had to be corrected by hand, and I worked out the box dimensions on my own. We drilled a channel for the wiring and re-soldered the connections that kept coming loose. A laser-cut tactile floor-map poster - <em>ual: LCC Tactile Wayfinding</em> - replaced a digital one to support the board.</p>
+        <div class="mae-4up">
+          <figure>
+            <img src="images/mae-cardboard-presentation.jpg" alt="Cardboard presentation prototype shown at interim review" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Cardboard presentation prototype</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-laser-cut.jpg" alt="Laser cutting process and box joint dimensions" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Laser cutting + box dimensions</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-box-assembly.jpg" alt="Box assembly and wiring inside the final wooden casing" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Box assembly + wiring</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-poster.jpg" alt="Laser-cut tactile floor-map poster: ual LCC Tactile Wayfinding" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Poster making + final poster</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S10 ── -->
+  <hr class="rule">
+  <section id="s10" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-pink">10</span>
+        <span class="cs-section-cat">Outcome</span>
+      </div>
+      <div>
+        <h2>The <em>outcome.</em></h2>
+        <p>The final mockup turns the concept into a tactile, material-based wayfinding system, experienced through touch rather than read off a screen. Sturdier construction resolved the earlier instability, and users navigate by following physical cues - making navigation an experience rather than a purely visual task.</p>
+        <figure class="mae-figblock">
+          <img src="images/mae-final-mockup.jpg" alt="Finished tactile wayfinding board, full view" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <figcaption class="fig-caption">The finished tactile wayfinding board</figcaption>
+        </figure>
+        <p>Final testing was revealing. Users found the WC interaction fun and engaging; one user found the café&rsquo;s sensory elements overwhelming and noted the system could be hard for people with autism, suggesting text alongside the icons. That single insight reframed the whole project around inclusivity.</p>
+        <div class="mae-2up">
+          <figure>
+            <img src="images/mae-final-closeup.jpg" alt="Close-up details of panels, coffee beans, and directional balls" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Close-ups - panels, beans, balls</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mae-user-testing.jpg" alt="Final user testing session with the completed board" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <figcaption class="fig-caption">Final user testing</figcaption>
+          </figure>
+        </div>
+        <div class="mae-feedback">
+          <div class="mae-fb-cell is-blue">
+            <p class="mae-fb-quote">&ldquo;Amazing example of technical skills and really well thought out.&rdquo;</p>
+            <p class="mae-fb-attr">- Peer</p>
+          </div>
+          <div class="mae-fb-cell is-pink">
+            <p class="mae-fb-quote">&ldquo;Excellent craftsmanship and so fun to interact with.&rdquo;</p>
+            <p class="mae-fb-attr">- Peer</p>
+          </div>
+          <div class="mae-fb-cell is-green">
+            <p class="mae-fb-quote">&ldquo;Love the full sensory experience - how often will I see an arrow?&rdquo;</p>
+            <p class="mae-fb-attr">- Peer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S11 ── -->
+  <hr class="rule">
+  <section id="s11" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num c-green">11</span>
+        <span class="cs-section-cat">Reflection</span>
+      </div>
+      <div>
+        <h2>What making <em>taught me.</em></h2>
+        <p class="mae-pullquote" style="width: 283px">Confusion and material failure stopped being mistakes - they became the most useful data I had.</p>
+        <p>Making as enquiry turned out to be a reflective, knowledge-generating process rather than a straight line to a solution.</p>
+        <p>The autism insight brought the project full circle, back to the tactile guiding paths that first inspired it. If I took it further, I&rsquo;d focus on tactile and sensory navigation tuned to different sensory intensities and needs, so the system is genuinely responsive to the people using it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer nav ── -->
+  <hr class="rule">
+  <div class="cs-footer-nav">
+    <div class="cs-footer-prev">
+      <p class="label" style="margin-bottom:0.3rem;">← Previous</p>
+      <a class="cs-foot-title" href="sound-as-structure.html">Sound as Structure</a>
+    </div>
+    <div class="cs-footer-next">
+      <p class="label" style="margin-bottom:0.3rem;">Next →</p>
+      <a class="cs-foot-title" href="gallery.html">Photography</a>
+    </div>
+  </div>
+
+</div><!-- /.cs-wrap -->
+</main>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span class="ticker__item">Making as Method</span>
+      <span class="ticker__item">Tactile Wayfinding</span>
+      <span class="ticker__item">Reflection-in-Action</span>
+      <span class="ticker__item">Inclusive Design</span>
+      <span class="ticker__item">Material Thinking</span>
+      <span class="ticker__item">Prototyping</span>
+    </div>
+    <div class="ticker__group">
+      <span class="ticker__item">Making as Method</span>
+      <span class="ticker__item">Tactile Wayfinding</span>
+      <span class="ticker__item">Reflection-in-Action</span>
+      <span class="ticker__item">Inclusive Design</span>
+      <span class="ticker__item">Material Thinking</span>
+      <span class="ticker__item">Prototyping</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

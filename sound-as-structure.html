@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound as Structure - Riddhi Taunk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ============================================
+   SOUND AS STRUCTURE - CASE STUDY PAGE
+   Editorial system: warm off-white + serif + mono labels
+   (matches Vocal for Local & Physical Ergonomics)
+   Accent: sound-meter gradient green->yellow->orange->red
+   ============================================ */
+
+.case-study {
+  --ink: #14110d;
+  --paper: #F0EDE8;
+  --paper-2: #e8e5dd;
+  --muted: #6a655c;
+  --soft: #8a8478;
+  --hairline: rgba(26,26,26,0.15);
+  /* sound-meter accent */
+  --c-quiet: #7faf3c;
+  --c-mid: #e3c81e;
+  --c-warm: #e8862e;
+  --c-loud: #cf4b3a;
+  --grad: linear-gradient(90deg, var(--c-quiet), var(--c-mid), var(--c-warm), var(--c-loud));
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.case-study p { margin-bottom: 1rem; font-size: 1.18rem; line-height: 1.7; color: var(--ink); }
+.case-study p:last-child { margin-bottom: 0; }
+
+/* Typography primitives */
+.case-study .mono {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.case-study .mono.small { font-size: 0.72rem; }
+.case-study .serif {
+  font-family: var(--serif);
+}
+
+/* Hairline rule */
+.case-study .hr { border: 0; border-top: 1px solid var(--hairline); margin: 0; }
+.case-study .hr.grad { height: 2px; border: 0; background: var(--grad); opacity: 0.85; }
+
+/* ---------- TOP BANNER ---------- */
+.cs-banner { margin: 0 calc(var(--gutter) * -1) 48px; }
+.cs-banner img { display: block; width: 100%; height: auto; }
+.case-study > .cs-banner + .cs-hero { padding-top: 0; }
+
+/* ---------- HERO ---------- */
+.cs-hero { padding: 64px 0 0; }
+.cs-hero-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 40px;
+}
+.cs-title {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(3.78rem, 8vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(1.2rem, 2.5vh, 2rem);
+}
+.case-study p.cs-lede {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(1.24rem, 1.7vw, 1.53rem);
+  line-height: 1.6;
+  max-width: 62ch;
+  color: var(--muted);
+  margin-bottom: 44px;
+}
+
+/* Metadata strip */
+.cs-metadata {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding: 28px 0 56px;
+  border-top: 1px solid var(--ink);
+}
+.cs-metadata .label { margin-bottom: 8px; }
+.cs-metadata .val { font-family: var(--body); font-size: 1.09rem; line-height: 1.45; color: var(--ink); }
+
+/* ---------- CONTENTS ---------- */
+.cs-index { padding: 36px 0 56px; }
+.cs-index .mono { display: block; margin-bottom: 22px; }
+.cs-index ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 64px;
+}
+.cs-index li {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.cs-index a {
+  font-family: var(--serif);
+  font-size: 1.06rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.cs-index a:hover { opacity: 0.5; }
+.cs-index .num { font-family: var(--mono); font-size: 0.77rem; letter-spacing: 0.18em; color: var(--muted); }
+
+/* ---------- SECTIONS ──  shell cloned 1:1 from physical-ergonomics ---------- */
+.cs-section {
+  display: grid;
+  grid-template-columns: 60px 1fr;          /* label col 60px · content col 1fr */
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: 64px 0;
+  align-items: start;
+  border-top: 1px solid var(--hairline);
+}
+.cs-section-marker { align-self: start; padding-top: 0.25rem; }
+.cs-section-num {
+  font-family: var(--mono);
+  font-size: 1.89rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.cs-section-cat { font-size: 0.68rem; letter-spacing: 0.2em; line-height: 1.4; }
+.cs-section-body { max-width: none; }     /* content spreads the full content column, no cap */
+.cs-section-body h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.53rem, 2.2vw, 2.12rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+/* accent-coloured section numbers */
+.s01 .cs-section-num { color: var(--line-2); }
+.s02 .cs-section-num { color: var(--line-2); }
+.s03 .cs-section-num { color: var(--line-2); }
+.s04 .cs-section-num { color: var(--line-2); }
+.s05 .cs-section-num { color: var(--line-2); }
+.s06 .cs-section-num { color: var(--line-2); }
+.s07 .cs-section-num { color: var(--line-2); }
+.s08 .cs-section-num { color: var(--line-2); }
+
+/* Pull quote */
+.pullquote {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: clamp(1.42rem, 2vw, 1.83rem);
+  line-height: 1.5;
+  padding: 4px 0 4px 22px;
+  border-left: 2px solid var(--c-loud);
+  margin: 8px 0 24px;
+  color: var(--ink);
+}
+
+/* Big stat */
+.bigstat { margin: 8px 0 24px; }
+.bigstat .num {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(64px, 10vw, 104px);
+  line-height: 0.85;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bigstat .cap { font-size: 14px; color: #2a2a2a; max-width: 420px; margin-top: 10px; }
+
+/* Data table - sound levels */
+.dbtable { width: 100%; border-collapse: collapse; margin: 6px 0 22px; }
+.dbtable th {
+  text-align: left; font-family: var(--mono);
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400; padding: 0 0 10px; border-bottom: 1px solid var(--ink);
+}
+.dbtable td {
+  padding: 11px 0; font-size: 14px; border-bottom: 1px solid var(--hairline); vertical-align: middle;
+}
+.dbtable td:first-child { font-family: var(--mono); font-size: 18px; }
+.dbtable .reading { font-family: var(--mono); font-size: 13px; }
+/* tiny gradient meter bar */
+.meter { display: inline-block; height: 6px; border-radius: 3px; background: var(--grad); vertical-align: middle; }
+
+/* two-up cards (zones / needs) */
+.twoup { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 8px 0 22px; }
+.zonecard { padding: 18px; border: 1px solid var(--hairline); border-radius: 2px; background: rgba(255,255,255,0.35); }
+.zonecard .tag { display:inline-block; font-family:var(--mono); font-size: 9px; letter-spacing:0.12em; text-transform:uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 12px; color:#fff; }
+.zonecard.quiet .tag { background: var(--c-quiet); }
+.zonecard.loud .tag { background: var(--c-loud); }
+.zonecard h3 { font-family:var(--serif); font-weight:500; font-size: 22px; margin-bottom: 6px; }
+.zonecard p { font-size: 13px; }
+
+/* note box */
+.notebox { background: rgba(26,26,26,0.06); padding: 14px 16px; border-radius: 2px; margin-top: 18px; }
+.notebox .mono { margin-bottom: 6px; }
+.notebox .txt { font-size: 12px; line-height: 1.65; color: #2a2a2a; }
+
+/* IMAGE SLOTS - replace with real assets */
+.img-slot {
+  background: #ddd9d0;
+  border: 1px dashed var(--soft);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  color: var(--soft);
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.08em;
+  padding: 24px; margin: 8px 0 6px;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+.img-slot:has(img) { border: 0; padding: 0; background: none; }
+.img-slot > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.img-slot.hero-art { min-height: 420px; margin: 0 0 8px; }
+.img-slot.tall { min-height: 300px; }
+.img-row { display: grid; gap: 12px; }
+.img-row.r2 { grid-template-columns: 1fr 1fr; }
+.img-row.r3 { grid-template-columns: repeat(3, 1fr); }
+
+/* PART D - every filled slot shows its image at natural aspect, no crop */
+.img-slot:has(img),
+.img-slot.tall:has(img),
+.img-slot.hero-art:has(img) {
+  min-height: 0;
+  aspect-ratio: auto;
+  display: block;
+  position: static;
+  overflow: visible;
+  padding: 0;
+}
+.img-slot:has(img) > img {
+  position: static;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+}
+.img-cap { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin: 0 0 22px; }
+
+/* SECTION 07 GALLERIES - sit in the SAME content column as every section's
+   .cs-section-body (same left start after the mono-label col, same right edge). */
+.cs-gallery-block {
+  margin-left: 0;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+.cs-gallery-block.final { margin-top: 48px; }
+.cs-gallery-label { display: block; margin-bottom: 14px; }
+.cs-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.cs-gallery .g-cell {
+  background: #ddd9d0;
+  border: 1px dashed var(--soft);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--soft);
+}
+.cs-gallery.portrait  .g-cell { aspect-ratio: 3 / 4; }
+.cs-gallery.landscape .g-cell { aspect-ratio: 4 / 3; }
+.cs-gallery { align-items: start; }
+.cs-gallery .g-cell:has(img) { border: 0; }
+.cs-gallery.portrait .g-cell:has(img),
+.cs-gallery.landscape .g-cell:has(img) { aspect-ratio: auto; }
+.cs-gallery .g-cell img {
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+  display: block;
+}
+.cs-gallery-block .img-cap { margin: 14px 0 0; }
+
+/* ---------- PAGE FOOTER NAV ---------- */
+.cs-pagefoot {
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding: 28px 0; border-top: 1px solid var(--ink); margin-top: 8px;
+}
+.cs-pagefoot a { text-decoration: none; color: var(--ink); transition: opacity 0.2s; }
+.cs-pagefoot a:hover { opacity: 0.5; }
+.cs-pagefoot .name { font-family: var(--serif); font-size: 20px; margin-top: 6px; }
+.cs-pagefoot .next { text-align: right; }
+
+/* ---------- TICKER ---------- */
+.ticker {
+  background: #1a1a1a; color: #F0EDE8; overflow: hidden;
+  border-block: 1px solid #1a1a1a;
+  padding-block: clamp(1rem, 1.6vw, 1.5rem); user-select: none; margin-top: 8px;
+}
+.ticker__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+.ticker__group { display: flex; flex-shrink: 0; }
+.ticker__item {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(1.1rem, 2.6vw, 1.9rem); letter-spacing: -0.01em;
+  white-space: nowrap; padding-inline: clamp(1rem, 2.2vw, 1.8rem);
+  display: inline-flex; align-items: center; gap: clamp(1rem, 2.2vw, 1.8rem);
+}
+.ticker__item::after { content: "✳"; font-size: 0.6em; color: #8d877c; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 720px) {
+  .case-study { padding: 0 20px; }
+  .cs-banner { margin: 0 -20px 48px; }
+  .cs-title { font-size: 56px; }
+  .cs-hero-top { flex-direction: column; gap: 6px; }
+  .cs-metadata { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cs-index ol { grid-template-columns: 1fr; }
+  .cs-section { grid-template-columns: 1fr; gap: 14px; padding: 40px 0; }
+  .cs-section-marker { position: static; }
+  .twoup, .img-row.r2, .img-row.r3 { grid-template-columns: 1fr; }
+  .cs-gallery-block { margin-left: 0; width: 100%; }
+  .cs-gallery { grid-template-columns: 1fr; }
+}
+</style>
+<script src="cursor-trail.js" defer></script>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand" style="display:flex;align-items:center;gap:0.6rem;">
+      <img src="logo/green-logo.png" alt="Rt" style="height:44px;width:auto;display:block;">
+    </a>
+    <nav class="nav">
+      <a class="nav__link is-active" href="work.html">Work</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+    </nav>
+    <span class="header-index">Project 03 / Design Thinking</span>
+  </div>
+</header>
+
+<article class="case-study" id="top">
+
+  <!-- ============ TOP BANNER ============ -->
+  <figure class="cs-banner">
+    <img src="images/sound-as-structure-banner.jpg" alt="Abstract sound-meter ribbon winding through space with small human figures for scale" loading="eager" decoding="async">
+  </figure>
+
+  <!-- ============ HERO ============ -->
+  <header class="cs-hero">
+    <div class="cs-hero-top">
+      <span class="mono">Project 03 / Design Thinking</span>
+      <span class="mono">London · Dec 2024 - Feb 2025</span>
+    </div>
+
+    <h1 class="cs-title" style="font-family: Fraunces;">Sound as Structure.</h1>
+
+    <p class="cs-lede">A design-thinking study of how sound shapes a learning space. This project involved measuring the acoustic life of my college workshop block and translating that invisible data into a tactile, foldable infographic that literally lets the reader <em>hear</em> the building.</p>
+
+    <div class="cs-metadata">
+      <div>
+        <div class="mono label">Type</div>
+        <div class="val">Design thinking ·<br>Data visualisation</div>
+      </div>
+      <div>
+        <div class="mono label">Duration</div>
+        <div class="val">~10 weeks<br>Dec 2024 - Feb 2025</div>
+      </div>
+      <div>
+        <div class="mono label">Context</div>
+        <div class="val">Solo · UAL<br>LCC, UX Year 1</div>
+      </div>
+      <div>
+        <div class="mono label">My role</div>
+        <div class="val">Field research, sound<br>measurement, synthesis, design</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ CONTENTS ============ -->
+  <nav class="cs-index" aria-label="Contents">
+    <span class="mono">Contents</span>
+    <ol>
+      <li><a href="#s01">The Question</a><span class="num">01</span></li>
+      <li><a href="#s02">Method</a><span class="num">02</span></li>
+      <li><a href="#s03">The Field</a><span class="num">03</span></li>
+      <li><a href="#s04">What the Data Showed</a><span class="num">04</span></li>
+      <li><a href="#s05">Secondary Research</a><span class="num">05</span></li>
+      <li><a href="#s06">The Tension</a><span class="num">06</span></li>
+      <li><a href="#s07">The Artifact</a><span class="num">07</span></li>
+      <li><a href="#s08">Reflection</a><span class="num">08</span></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 01 ============ -->
+  <section class="cs-section s01" id="s01">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">01</div>
+      <div class="mono cs-section-cat">The Question</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>The brief asked me to communicate complexity. I chose to make sound visible.</h2>
+      <p>The brief was intentionally open-ended: take something complex and communicate it visually. While wandering the workshop block with no fixed focus, a constant, sharp beeping near the sound studios made me hyper-aware of noises I would normally tune out.</p>
+      <p>That one sound reframed the entire space. I realised noise wasn't just a neutral background element; it was actively steering how the rooms felt and how people behaved. I narrowed my focus from the entire physical building down to a single, slippery design material: <em>sound as an architectural layer</em>.</p>
+      <p class="pullquote">How does sound influence learning environments, and how can its role be visually represented to highlight its impact on focus and collaboration?</p>
+    </div>
+  </section>
+
+  <!-- ============ 02 ============ -->
+  <section class="cs-section s02" id="s02">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">02</div>
+      <div class="mono cs-section-cat">Method</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>I walked every room I could get into and listened.</h2>
+      <p>A decibel meter can tell you how loud a room is, but it can't tell you how the room feels. I started by walking every room I could get into just to listen and observe.</p>
+      <p>Louder rooms swarmed with energy — machinery whirring, voices overlapping — producing a sense of urgency, but also deep distraction. Quieter rooms felt almost motionless and lonely: easy to focus, but completely drained of collaborative momentum.</p>
+      <p>The contrast became the primary insight. Sound wasn't a passive byproduct of the space; it was actively dictating concentration. Two rooms just a few metres apart were asking completely different things of the exact same student.</p>
+      <div class="img-row r2">
+        <div class="img-slot tall"><img src="images/corridor.jpg" alt="A long workshop-block corridor with a sound-meter reading of 62.5 dB overlaid, lit by ceiling strip lights, with display cases and noticeboards along white brick walls" loading="lazy"></div>
+        <div class="img-slot tall"><img src="images/mind-map_notes.jpg" alt="Handwritten mind-map notes branching from 'acoustics' to atmosphere, materials and interaction of users, with an early observation about an area being absolutely quiet" loading="lazy"></div>
+      </div>
+      <p class="img-cap" style="font-size: 16px">Initial observation notes - the first time "acoustics" got circled as the theme.</p>
+    </div>
+  </section>
+
+  <!-- ============ 03 ============ -->
+  <section class="cs-section s03" id="s03">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">03</div>
+      <div class="mono cs-section-cat">The Field</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>The second floor held the sharpest contrast, so it became the subject.</h2>
+      <p>I chose the second floor of the workshop block because it held the sharpest, most honest architectural contrast in the building along a single corridor.</p>
+      <p>Rather than averaging out the data of the whole building, I leaned directly into this corridor's unique tension. The space houses polar opposites simultaneously: the lively, communal buzz of the print, finishing, and letterpress rooms sits immediately adjacent to the quiet, isolated sanctuary of the W-rooms and the kit room.</p>
+      <div class="img-row r3">
+        <div class="img-slot tall"><img src="images/kit_room.jpg" alt="The Kit Room (W239) with a 60.7 dB sound reading overlaid, showing noticeboards, a Yale lock sign and students working at iMacs behind a glass partition" loading="lazy"></div>
+        <div class="img-slot tall"><img src="images/_print___finishing.jpg" alt="The print and finishing room with a 52.4 dB reading overlaid, large-format printers behind a 'Please Do Not Enter - Wait at Reception Desk' sign and a technician at work" loading="lazy"></div>
+        <div class="img-slot tall"><img src="images/hallway.jpg" alt="A collage of four near-silent W-room hallways with white walls, exposed ceiling ducting and parquet or grey flooring" loading="lazy"></div>
+      </div>
+      <p class="img-cap">Floor 2 - from the busy kit room to the near-silent W-rooms.</p>
+    </div>
+  </section>
+
+  <!-- ============ 04 ============ -->
+  <section class="cs-section s04" id="s04">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">04</div>
+      <div class="mono cs-section-cat">What the Data Showed</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>I measured each zone with sound apps, across different times of day.</h2>
+      <p>I sampled each zone repeatedly between December and January using <strong>Decibel X</strong> (for decibel levels and graph readings) and <strong>Sonic Tools</strong> (to capture the frequency spectrum) to map exactly how the building's acoustic activity rose and fell.</p>
+
+      <table class="dbtable">
+        <thead>
+          <tr><th>Zone</th><th>Observed range</th><th style="width:200px;">Acoustic profile</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Letterpress</td><td class="reading">50.8 – 75.4 dB</td><td><span class="meter" style="width:80px;"></span><br><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">High spike, high frequency</span></td></tr>
+          <tr><td>Print &amp; Finishing</td><td class="reading">47.9 – 74.2 dB</td><td><span class="meter" style="width:78px;"></span><br><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">Constant, high frequency</span></td></tr>
+          <tr><td>Hallway</td><td class="reading">50.3 – 62.5 dB</td><td><span class="meter" style="width:60px;"></span><br><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">Fluctuating, transitional noise</span></td></tr>
+          <tr><td>Kit Room</td><td class="reading">43.8 – 60.7 dB</td><td><span class="meter" style="width:56px;"></span><br><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">Moderate, predictable hum</span></td></tr>
+          <tr><td>Digital Print</td><td class="reading">52.4 dB</td><td><span class="meter" style="width:44px;"></span><br><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">Flat, steady drone</span></td></tr>
+          <tr><td>W-Rooms</td><td class="reading">23.2 – 46.9 dB</td><td><span class="meter" style="width:28px;"></span><br><span style="font-family:var(--mono);font-size:9px;color:var(--muted);">Low, low frequency</span></td></tr>
+        </tbody>
+      </table>
+
+      <p>The surprise in the data came during class transitions. I assumed noise would peak when students flooded the halls between sessions. Instead, noise dropped drastically. The loudest hours were actually caused by sustained, collaborative group work inside the studios, not the brief rush of students moving between classes.</p>
+      <div class="img-row r2">
+        <div class="img-slot tall"><img src="images/Decibel_X_meter.jpg" alt="Four Decibel X meter screenshots showing decibel dial readings of 72.0, 74.2, 75.4 and 60.5 dB with blue frequency-bar graphs above each" loading="lazy"></div>
+        <div class="img-slot tall"><img src="images/Sonic_Tools_spectrum.jpg" alt="Three Sonic Tools frequency-spectrum screenshots in red showing peak readings of 294 Hz, 50.8 dB and 775 Hz across different zones" loading="lazy"></div>
+      </div>
+      <p class="img-cap">Representative readings - cut from 25+ captures to the few that show the contrast.</p>
+    </div>
+  </section>
+
+  <!-- ============ 05 ============ -->
+  <section class="cs-section s05" id="s05">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">05</div>
+      <div class="mono cs-section-cat">Secondary Research</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>The numbers only meant something against published guidelines.</h2>
+      <p>To turn these numbers into actionable insights, I measured them against official UK acoustic-design standards and student realities. UK guidelines state that standard classrooms shouldn't exceed 35 dB, while high-activity workshops are expected to sit between 45–65 dB. Research shows that moderate ambient noise (50–60 dB) can actually boost creative thinking, but anything past 65 dB completely breaks down a student's ability to concentrate.</p>
+      <div class="bigstat">
+        <div class="num">80%</div>
+        <div class="cap">of students report experiencing disruptive noise levels in educational spaces — highlighting a massive gap between architectural guidelines and daily reality.</div>
+      </div>
+      <p>To cross-examine the literature with real-world preferences, I ran a quick survey on Reddit. The responses split cleanly down the middle: focus-seekers demanded absolute silence or low ambient sound, while collaborators actively sought out moderate background noise to spark energy. Both needs were completely valid, yet entirely opposed.</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 ============ -->
+  <section class="cs-section s06" id="s06">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">06</div>
+      <div class="mono cs-section-cat">The Tension</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>One building, two opposite acoustic needs at the same time.</h2>
+      <p>The research pointed to a single, systemic challenge: the floor has to serve intense individual focus and high-energy collaboration at the exact same time. Sound is the invisible lever that tips a space toward one or the other.</p>
+      <div class="twoup">
+        <div class="zonecard quiet">
+          <span class="tag">Foundation</span>
+          <h3>Quiet zones</h3>
+          <p>Low, steady sound. The necessary base layer that lets individual concentration happen — the W-rooms.</p>
+        </div>
+        <div class="zonecard loud">
+          <span class="tag">Dynamic layer</span>
+          <h3>Collaborative zones</h3>
+          <p>Higher, livelier frequencies. The energy layer that drives peer exchange and creative momentum — print and letterpress.</p>
+        </div>
+      </div>
+      <p>The friction doesn't happen because the print shop is loud; it happens when noise spills from a collaborative zone into a quiet one, breaking the functionality of both. The goal wasn't to silence the building, it was to <strong>visually map sound as a structural layer</strong> so users could navigate it effectively.</p>
+    </div>
+  </section>
+
+  <!-- ============ 07 ============ -->
+  <section class="cs-section s07" id="s07">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">07</div>
+      <div class="mono cs-section-cat">The Artifact</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>I built the data into a poster you have to open with your hands.</h2>
+      <p>I translated this spatial data into a physical, interactive poster that the reader has to unpack and explore with their hands. Modelled after the physical behaviour of sound waves, the layout stacks quiet foundations underneath the more chaotic, collaborative layers.</p>
+      <p>A <strong>Spatial Map</strong> tracking decibel intensity across the physical blueprint of the second floor, supported by a 3D model built in Arcadium 3D. A <strong>Sankey flow</strong> tracing exactly where the sound originates — 47.6% humans, 42.1% machines, 10.3% environmental ambient noise. <strong>Tactile Flaps</strong> — physical paper folds that force the reader to manually lift and uncover the specific acoustic profile of each zone.</p>
+
+      <!-- GALLERY 1 - IDEATION -->
+      <div class="cs-gallery-block">
+        <div class="mono cs-gallery-label">Ideation</div>
+        <div class="cs-gallery portrait">
+          <div class="g-cell"><img src="images/Frame_12.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_13.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_14.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_15.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_16.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_17.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_18.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+          <div class="g-cell"><img src="images/Frame_19.jpg" alt="Ideation sketch - sketchbook page" loading="lazy"></div>
+        </div>
+        <p class="img-cap">Sketches and paper folds - figuring out the artefact.</p>
+      </div>
+
+      <!-- GALLERY 2 - FINAL PROCESS -->
+      <div class="cs-gallery-block final">
+        <div class="mono cs-gallery-label">Artefact</div>
+        <div class="cs-gallery portrait">
+          <div class="g-cell"><img src="images/1.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/2.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/3.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/4.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/5.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/6.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/7.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+          <div class="g-cell"><img src="images/8.jpg" alt="Final folded artefact - poster photograph" loading="lazy"></div>
+        </div>
+        <p class="img-cap">The finished folded artefact - an interactive foldable poster</p>
+      </div>
+
+      <p>Before finalising the print, I added an interactive graph directly onto the artefact that invites readers to plot their own preferred sound levels. This small addition shifts the viewer from a passive audience member into an active data point, closing the loop on a project dedicated to human perception.</p>
+    </div>
+  </section>
+
+  <!-- ============ 08 ============ -->
+  <section class="cs-section s08" id="s08">
+    <div class="cs-section-marker">
+      <div class="cs-section-num">08</div>
+      <div class="mono cs-section-cat">Reflection</div>
+    </div>
+    <div class="cs-section-body">
+      <h2>The hard part wasn't collecting data. It was knowing what to cut.</h2>
+      <p>The hardest part of this project wasn't collecting the data; it was knowing what to cut. When you are measuring something completely invisible, there is an overwhelming temptation to display every single piece of evidence to prove your rigour. My first design draft buried the core narrative under 25 near-identical smartphone screenshots of decibel meters.</p>
+      <p>The project only became successful when I learned to trust a handful of highly contrasting readings to carry the weight of the story. I realised that design judgment means separating raw data from user attention — giving the viewer the space to feel the acoustic contrast rather than exhausting them with proof.</p>
+      <div class="notebox">
+        <div class="mono">What I'd push further</div>
+        <div class="txt">If I had more time, I would take this static paper project and move it onto a live-updating digital screen driven by real-time decibel sensors in the hallways. Testing that digital artefact directly with the students on the second floor would allow the very people being measured to read their own acoustic behaviour back in real time.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE FOOTER NAV ============ -->
+  <nav class="cs-pagefoot" aria-label="Project navigation">
+    <a href="physical-ergonomics.html">
+      <div class="mono">← Previous</div>
+      <div class="name">Physical Ergonomics</div>
+    </a>
+    <a href="making-as-enquiry.html" class="next">
+      <div class="mono">Next →</div>
+      <div class="name">Making as Enquiry</div>
+    </a>
+  </nav>
+
+</article>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span class="ticker__item">Sound Design</span>
+      <span class="ticker__item">Data Visualisation</span>
+      <span class="ticker__item">Acoustics</span>
+      <span class="ticker__item">Design Thinking</span>
+      <span class="ticker__item">Tactile Infographics</span>
+      <span class="ticker__item">Field Research</span>
+    </div>
+    <div class="ticker__group">
+      <span class="ticker__item">Sound Design</span>
+      <span class="ticker__item">Data Visualisation</span>
+      <span class="ticker__item">Acoustics</span>
+      <span class="ticker__item">Design Thinking</span>
+      <span class="ticker__item">Tactile Infographics</span>
+      <span class="ticker__item">Field Research</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

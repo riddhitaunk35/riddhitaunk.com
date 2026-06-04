@@ -9,15 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="cursor-trail.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="index.html">Riddhi Taunk<span class="dot">.</span></a>
+      <a class="brand" href="index.html" style="display:flex;align-items:center;gap:0.6rem;">
+        <img src="logo/green-logo.png" alt="Riddhi Taunk" />
+      </a>
       <nav class="nav" aria-label="Primary">
-        <a href="work.html">Work</a>
-        <a href="about.html" aria-current="page">About</a>
-        <a href="mailto:riddhitaunk35@gmail.com">Contact</a>
+        <a class="nav__link" href="work.html">Work</a>
+        <a class="nav__link is-active" href="about.html" aria-current="page">About</a>
+        <a class="nav__link" href="contact.html">Contact</a>
       </nav>
       <span class="header-index">London · 2026</span>
     </div>
@@ -27,60 +30,58 @@
     <section class="page-head">
       <div class="wrap">
         <p class="label">About</p>
-        <h1 class="page-title"><span class="accent">Researcher,</span><br />maker, listener.</h1>
+        <h1 class="page-title"><span class="accent">Researcher,</span><br />maker, <em>listener.</em></h1>
       </div>
     </section>
 
-    <section class="section" style="padding-top: clamp(1rem, 3vh, 2.5rem)">
+    <section class="section" style="padding-top:clamp(1rem, 3vh, 2.5rem)">
       <div class="wrap about-grid">
         <div class="prose">
-          <p class="lead">
-            I&rsquo;m Riddhi Taunk, a UX Design Researcher based in London. My
-            practice sits between fieldwork and making — studying how people move,
-            feel and relate to the spaces and objects around them.
-          </p>
-          <p>
-            Currently at the University of the Arts London, my work draws on
-            community listening and participatory methods. I spend time with the
-            people a design is meant to serve before a single decision is made,
-            translating lived experience into research that holds up under
-            scrutiny.
-          </p>
-          <p>
-            The through-line is the body: tactile design, ergonomics and sensory
-            environments — the quiet, physical details that shape behaviour long
-            before anyone notices them. I work with institutions, studios and
-            communities who care about getting those details right.
-          </p>
-          <p>
-            If that sounds like your kind of work, the door is open.
-          </p>
+          <p class="lead">I&rsquo;m Riddhi Taunk, a UX design student who&rsquo;s interested in designing experiences that feel thoughtful, clear and useful.</p>
+          <p>I enjoy the balance that UX offers between creativity and logic, and I&rsquo;m especially drawn to work that starts with listening, questioning and understanding people before jumping onto solutions.</p>
+          <p>I&rsquo;ve always liked noticing details, the small things that make an experience feel smooth, confusing, welcoming or frustrating. That&rsquo;s the big part why UX feels right for me. It gives me space to think carefully, design with intention and create work that feels both human and purposeful.</p>
+          <p>As I continue building my practice, I&rsquo;m developing a strong foundation in research, interaction design, prototyping and visual communication. I&rsquo;m interested in making work that is not only visually considered, but also meaningful, accessible and grounded in people it is for.</p>
         </div>
 
         <aside class="ledger">
-          <dl>
+          <dl style="height:402px;font-weight:400;text-align:right;width:600px;">
             <dt>Focus</dt>
-            <dd>Community Listening &amp; Fieldwork</dd>
-            <dd>Participatory Research</dd>
-            <dd>Tactile Design &amp; Ergonomics</dd>
-            <dd>Sensory Environments</dd>
-
+            <dd>Community listening &amp; fieldwork</dd>
+            <dd>User research</dd>
+            <dd>Research Synthesis</dd>
+            <dd>Usability Thinking</dd>
             <dt>Affiliation</dt>
             <dd>University of the Arts London</dd>
             <dd>London, United Kingdom</dd>
-
-            <dt>Methods</dt>
-            <dd>Interviews · Co-design · Observation</dd>
-            <dd>Material &amp; making-led enquiry</dd>
-
-            <dt>Contact</dt>
-            <dd><a href="mailto:riddhitaunk35@gmail.com">riddhitaunk35@gmail.com</a></dd>
-            <dd><a href="work.html">View selected work →</a></dd>
+            <dt>Resume</dt>
+            <dd><a href="assets/Riddhi-Taunk-Resume.pdf" download>Download resume ↓</a></dd>
           </dl>
         </aside>
       </div>
     </section>
   </main>
+
+  <!-- Full-bleed scrolling marquee -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <div class="ticker__group">
+        <span class="ticker__item">Community Listening</span>
+        <span class="ticker__item">Fieldwork</span>
+        <span class="ticker__item">Embodied Research</span>
+        <span class="ticker__item">Tactile Design</span>
+        <span class="ticker__item">Observations</span>
+        <span class="ticker__item">Human Behaviour</span>
+      </div>
+      <div class="ticker__group">
+        <span class="ticker__item">Community Listening</span>
+        <span class="ticker__item">Fieldwork</span>
+        <span class="ticker__item">Embodied Research</span>
+        <span class="ticker__item">Tactile Design</span>
+        <span class="ticker__item">Observations</span>
+        <span class="ticker__item">Human Behaviour</span>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="wrap">

@@ -11,3 +11,7 @@ Thumbs.db
 
 # Dependencies (none required, but just in case)
 node_modules/
+
+# Full-res photo originals — the site uses the optimized copies in gallery/web/
+/gallery/*
+!/gallery/web/

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physical Ergonomics — Riddhi Taunk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Page shell (mirrors vocal-for-local) ── */
+    .cs-wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter); }
+    .site-header .wrap { grid-template-columns: auto 1fr auto; }
+
+    /* ── Hero (identical structure to vocal-for-local) ── */
+    .cs-hero { padding: clamp(3.5rem,9vh,7rem) 0 clamp(2rem,4vh,3.5rem); }
+    .cs-hero-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: clamp(2.5rem,5vh,4rem);
+    }
+    .cs-hero h1 {
+      font-family: var(--serif); font-optical-sizing: auto;
+      font-size: clamp(3.78rem,8vw,8rem); font-weight: 500;
+      letter-spacing: -0.035em; line-height: 0.9;
+      margin: 0 0 clamp(1.2rem,2.5vh,2rem);
+    }
+    .cs-hero h1 em { font-weight: 300; }
+    .cs-hero-lede {
+      font-family: var(--mono);
+      font-size: clamp(1.24rem,1.7vw,1.53rem); line-height: 1.6;
+      color: var(--muted); max-width: 62ch; margin: 0 0 clamp(2rem,4vh,3.5rem);
+    }
+    .cs-meta-strip {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; border-top: 1px solid var(--line-2);
+      padding-top: clamp(1.2rem,2.5vh,2rem); margin-top: clamp(1.2rem,2.5vh,2rem);
+    }
+    .cs-meta-col { padding-right: 1.5rem; }
+    .cs-meta-col + .cs-meta-col { border-left: 1px solid var(--line); padding-left: 1.5rem; }
+    .cs-meta-col .label { margin-bottom: 0.5rem; }
+    .cs-meta-col p { font-family: var(--mono); font-size: 1.09rem; line-height: 1.45; margin: 0; }
+
+    /* ── Contents ── */
+    .cs-contents { padding: clamp(2rem,4vh,3rem) 0; }
+    .cs-contents-inner { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; align-items: start; padding-top: 1.5rem; }
+    .cs-contents-list { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 3rem; }
+    .cs-contents-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.06rem; }
+    .cs-contents-list a { color: var(--muted); transition: color 0.3s var(--ease); flex: 1; }
+    .cs-contents-list a:hover { color: var(--ink); }
+    .cs-contents-list .num { font-family: var(--mono); font-size: 0.77rem; letter-spacing: 0.18em; color: var(--muted); white-space: nowrap; align-self: center; }
+
+    /* ── Section scaffold (60px left col per spec) ── */
+    .cs-section { padding: 64px 0; }
+    .cs-section-grid { display: grid; grid-template-columns: 60px 1fr; gap: clamp(1.5rem,3vw,3rem); align-items: start; }
+    .cs-section-left { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.25rem; }
+    .cs-section-num { font-family: var(--mono); font-size: 1.89rem; font-weight: 400; color: var(--line-2); line-height: 1; }
+    .cs-section-cat { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); line-height: 1.4; }
+    .cs-section h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.53rem,2.2vw,2.12rem); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 1.2rem; }
+    .cs-section h2 em { font-weight: 300; }
+    .cs-section p { margin: 0 0 1rem; font-size: 1.18rem; line-height: 1.7; }
+    .cs-section p:last-child { margin-bottom: 0; }
+    .cs-pull-quote { font-family: var(--mono); font-size: clamp(1.42rem,2vw,1.83rem); line-height: 1.5; color: var(--ink); margin: 0 0 1.5rem; font-weight: 300; }
+
+    /* ── Case hero image (banner) — matches vocal-for-local & sound-as-structure ── */
+    .case-hero { max-width: var(--maxw); margin: 0 auto 48px; width: 100%; padding-inline: var(--gutter); }
+    .case-hero img {
+      display: block; width: 100%; height: auto;
+    }
+
+    /* ── Image placeholder / real-image container ── */
+    .img-ph {
+      background: var(--paper-2);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--muted); padding: 16px; text-align: center;
+      border: 1px solid var(--line);
+      background-image: repeating-linear-gradient(135deg, rgba(20,17,13,0.025) 0 1px, transparent 1px 10px);
+      overflow: hidden;
+    }
+    .img-ph .ph-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; }
+    .img-ph .ph-file { font-family: var(--mono); font-size: 0.92rem; color: var(--line-2); margin-top: 4px; }
+    .img-ph.is-circle { border-radius: 50%; }
+    /* When .img-ph holds a real <img>, drop the placeholder chrome */
+    .img-ph.has-img { padding: 0; border: 0; background-image: none; background: var(--paper-2); }
+    .img-ph.has-img img { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; }
+
+    /* ── NEW: Constraint card — dark insight-callout style (matches vocal-for-local) ── */
+    .cs-constraint {
+      background: #1a1a1a;
+      color: var(--paper);
+      padding: clamp(2rem,4vh,3rem) clamp(1.5rem,3vw,3rem);
+      margin: 1.8rem 0 0;
+      max-width: none;
+      font-family: var(--mono);
+      font-size: 11px; line-height: 1.6;
+      border-left: 0;
+    }
+    .cs-constraint .cs-constraint-label {
+      display: block; margin-bottom: 0.8rem;
+      font-family: var(--mono); font-style: normal;
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── NEW: People block (S02) ── */
+    .people-block {
+      display: grid; grid-template-columns: 140px 1fr; gap: 2rem;
+      margin: 1.8rem 0 1.2rem; align-items: start;
+    }
+    .people-portrait { width: 140px; height: 140px; }
+    .people-card { border-top: 1px solid var(--line-2); padding-top: 0.9rem; }
+    .people-card .people-name {
+      font-family: var(--serif); font-size: 1.24rem; font-weight: 500;
+      margin: 0 0 0.5rem; line-height: 1.3;
+    }
+    .people-card .people-detail {
+      font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); line-height: 1.8;
+      margin: 0;
+    }
+
+    /* ── S03: side-by-side zones + floor plan ── */
+    .zones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0 1.2rem; }
+    .zones-grid .img-ph { aspect-ratio: 4/3; }
+    .zones-grid .fig-caption {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin-top: 0.6rem;
+    }
+
+    /* ── S04: two-phase strip + two-up process (was 3-up) ── */
+    .phase-strip { margin: 1.5rem 0 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .phase-row { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
+    .phase-tag {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; background: var(--ink); color: var(--paper);
+      padding: 0.3rem 0.7rem; white-space: nowrap;
+    }
+    .phase-row .phase-desc { font-family: var(--mono); font-size: 1rem; color: var(--muted); }
+
+    .process-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; margin: 1.4rem 0; }
+    .process-grid .img-ph { aspect-ratio: 1; }
+    .process-grid .fig-caption {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin-top: 0.6rem;
+    }
+
+    /* ── S05: four tool tiles (larger, no captions) ── */
+    .tool-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; margin: 1.8rem 0 0.4rem; }
+    .tool-grid .img-ph { aspect-ratio: 1; border-radius: 8px; }
+
+    /* ── NEW: 2-up posture cards (S06) ── */
+    .posture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.6rem 0 1.2rem; }
+    .posture-card { border-top: 2px solid var(--ink); padding-top: 1rem; }
+    .posture-card .posture-label {
+      font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 0.7rem;
+    }
+    .posture-card .img-ph { aspect-ratio: 4/5; margin-bottom: 1rem; }
+    .score-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .score-block .score-label {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 0.3rem;
+    }
+    .score-block .score-num {
+      font-family: var(--serif); font-optical-sizing: auto; font-weight: 500;
+      font-size: clamp(40px, 5vw, 64px); line-height: 0.9; letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .score-block .score-num.is-alarm { color: #993c1d; }
+    .posture-verdict {
+      font-family: var(--mono);
+      font-size: 1.1rem; line-height: 1.35; color: var(--ink); margin: 0 0 0.3rem;
+    }
+    .posture-verdict.is-alarm { color: #993c1d; }
+    .posture-note { font-family: var(--mono); font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    /* ── NEW: Dark stat callout (S07) ── */
+    .day-grid {
+      display: grid; grid-template-columns: clamp(180px, 22%, 240px) 1fr;
+      gap: 1.6rem; margin: 1.6rem 0 1.2rem; align-items: start;
+    }
+    .day-total {
+      background: #1a1a1a; color: var(--paper);
+      padding: 1.4rem 1.2rem; text-align: center;
+    }
+    .day-total .day-total-label {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #b8b4a8; margin: 0 0 0.5rem;
+    }
+    .day-total .day-total-num {
+      font-family: var(--serif); font-weight: 500;
+      font-size: clamp(56px, 7vw, 88px); line-height: 0.9; color: var(--paper);
+      letter-spacing: -0.02em;
+    }
+    .day-total .day-total-foot {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #b8b4a8; margin: 0.6rem 0 0;
+    }
+    .day-list {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.6rem;
+      font-family: var(--mono);
+    }
+    .day-list .day-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 0.6rem; padding: 0.5rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.02rem;
+    }
+    .day-list .day-row .day-row-val { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+
+    /* ── NEW: Task → condition ledger (S08) ── */
+    .ledger-block { margin: 1.4rem 0 1rem; border-top: 1px solid var(--ink); }
+    .ledger-block .ledger-head,
+    .ledger-block .ledger-row {
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 1.6rem;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--line);
+    }
+    .ledger-block .ledger-head {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .ledger-block .ledger-row .ledger-task {
+      font-family: var(--mono); font-weight: 500; font-size: 1.15rem;
+      letter-spacing: -0.01em; color: var(--ink);
+    }
+    .ledger-block .ledger-row .ledger-conds {
+      font-family: var(--mono); font-size: 1.05rem; line-height: 1.6; color: var(--muted);
+    }
+    .ledger-block .ledger-row:last-child { border-bottom: 0; }
+
+    /* ── NEW: 10 → 3 → 1 funnel (S09) ── */
+    .funnel-row {
+      display: flex; align-items: center; gap: 1.2rem;
+      margin: 1.4rem 0 1.2rem; flex-wrap: wrap;
+    }
+    .funnel-dots { display: flex; gap: 4px; }
+    .funnel-dots span { width: 14px; height: 14px; background: var(--line); display: block; }
+    .funnel-dots span.is-chosen { background: var(--ink); }
+    .funnel-row .funnel-step {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .funnel-row .funnel-final {
+      font-family: var(--mono); font-size: 1.3rem; color: var(--ink);
+    }
+
+    .crit-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.9rem; margin: 1.2rem 0; }
+    .crit-card {
+      background: rgba(20,17,13,0.04);
+      border: 1px solid var(--line);
+      padding: 1.1rem 1rem;
+    }
+    .crit-card .crit-tag {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 0.5rem;
+    }
+    .crit-card .crit-title {
+      font-family: var(--serif); font-size: 1.18rem; font-weight: 500;
+      line-height: 1.25; margin: 0 0 0.4rem; color: var(--muted);
+    }
+    .crit-card .crit-meta {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+      color: var(--muted); margin: 0;
+    }
+    .crit-card .crit-foot {
+      font-family: var(--mono);
+      font-size: 0.95rem; color: var(--line-2); margin: 0.6rem 0 0; line-height: 1.5;
+    }
+    .crit-card.is-chosen {
+      background: #1a1a1a; color: var(--paper); border-color: transparent;
+    }
+    .crit-card.is-chosen .crit-tag { color: #d8a89a; }
+    .crit-card.is-chosen .crit-title { color: var(--paper); }
+    .crit-card.is-chosen .crit-meta { color: #d8a89a; }
+    .crit-card.is-chosen .crit-foot { color: #c4b896; font-style: normal; font-family: var(--mono); }
+
+    /* \u2500\u2500 S09: concept image subsection \u2500\u2500 */
+    .concept-block { margin-top: 2.4rem; }
+    .concept-subhead {
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 1rem;
+    }
+    .concept-grid { display: grid; grid-template-columns: 1fr; gap: 1.4rem; justify-items: start; }
+    .concept-grid .img-ph { aspect-ratio: 1024 / 574; width: 100%; max-width: 1024px; }
+
+    .why-callout {
+      background: rgba(20,17,13,0.05);
+      padding: 1.1rem 1.3rem; margin: 1.2rem 0;
+    }
+    .why-callout .why-label {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem;
+    }
+    .why-callout .why-body {
+      font-family: var(--mono); font-size: 1.06rem; line-height: 1.7; color: var(--ink);
+      margin: 0;
+    }
+
+    /* ── NEW: Serif pull quote (S10) ── */
+    .cs-serif-quote {
+      font-family: var(--mono);
+      font-size: 1.42rem; line-height: 1.4; color: var(--ink);
+      max-width: 520px; font-weight: 400; margin: 0 0 1.4rem;
+    }
+
+    .push-callout {
+      background: rgba(20,17,13,0.05);
+      padding: 1.1rem 1.3rem; margin: 1.4rem 0 0;
+    }
+    .push-callout .push-label {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 0.5rem;
+    }
+    .push-callout .push-body {
+      font-family: var(--mono); font-size: 1.05rem; line-height: 1.65; color: var(--ink); margin: 0;
+    }
+
+    /* ── S11: Assessment appendix ── */
+    .appendix-grid {
+      display: grid; grid-template-columns: 40% 1fr;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      margin: 1.6rem 0 0; align-items: start;
+    }
+    .appendix-thumb {
+      max-width: 280px; width: 100%; aspect-ratio: 3/4;
+      border: 1px solid rgba(26,26,26,0.15);
+      overflow: hidden; background: var(--paper-2);
+    }
+    .appendix-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .appendix-list { list-style: none; margin: 0.4rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+    .appendix-list li {
+      padding: 0.7rem 0; border-bottom: 1px solid var(--line);
+      font-family: var(--mono); font-size: 1.06rem; line-height: 1.4; color: var(--ink);
+    }
+    .appendix-cta {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      margin-top: 1.4rem; padding: 0.7rem 1.1rem;
+      font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink);
+      background: transparent; border: 1px solid var(--ink);
+      transition: background 0.3s var(--ease), color 0.3s var(--ease);
+    }
+    .appendix-cta:hover { background: var(--ink); color: var(--paper); }
+    .appendix-cta .arrow { transition: transform 0.3s var(--ease); }
+    .appendix-cta:hover .arrow { transform: translateX(3px); }
+
+    @media (max-width: 768px) {
+      .appendix-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Footer nav (identical to vocal-for-local) ── */
+    .cs-footer-nav { border-top: 1px solid var(--line-2); padding: 2.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
+    .cs-footer-nav a { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); transition: color 0.3s var(--ease); }
+    .cs-footer-nav a:hover { color: var(--ink); }
+    .cs-footer-prev .label, .cs-footer-next .label { margin-bottom: 0.3rem; }
+    .cs-footer-prev a.cs-foot-title, .cs-footer-next a.cs-foot-title {
+      font-family: var(--serif); font-size: 1.18rem; font-weight: 500;
+      text-transform: none; letter-spacing: 0; color: var(--ink);
+    }
+    .cs-footer-next { text-align: right; }
+
+    @media (max-width: 768px) {
+      .cs-section-grid { grid-template-columns: 1fr; }
+      .cs-section-left { flex-direction: row; gap: 1rem; align-items: center; }
+      .cs-section-num { font-size: 1.18rem; }
+      .cs-meta-strip { grid-template-columns: 1fr 1fr; }
+      .cs-meta-col + .cs-meta-col:nth-child(3) { border-left: none; padding-left: 0; margin-top: 1.5rem; }
+      .cs-contents-list { columns: 1; }
+      .zones-grid, .process-grid, .posture-grid, .crit-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .tool-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .concept-grid { grid-template-columns: 1fr; }
+      .day-grid { grid-template-columns: 1fr; }
+      .day-list { grid-template-columns: 1fr; }
+      .people-block { grid-template-columns: 1fr; }
+    }
+
+    /* ── Ticker (copied from vocal-for-local) ── */
+    .ticker {
+      background: var(--black); color: var(--paper); overflow: hidden;
+      border-block: 1px solid var(--black);
+      padding-block: clamp(1rem, 1.6vw, 1.5rem); user-select: none;
+    }
+    .ticker__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .ticker:hover .ticker__track { animation-play-state: paused; }
+    .ticker__group { display: flex; flex-shrink: 0; }
+    .ticker__item {
+      font-family: var(--serif); font-weight: 500;
+      font-size: clamp(1.1rem, 2.6vw, 1.9rem); letter-spacing: -0.01em;
+      white-space: nowrap; padding-inline: clamp(1rem, 2.2vw, 1.8rem);
+      display: inline-flex; align-items: center; gap: clamp(1rem, 2.2vw, 1.8rem);
+    }
+    .ticker__item::after { content: "✳"; font-size: 0.6em; color: #8d877c; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ── PART A · 3-role type system ───────────────────────────────
+       Body (all paragraph text) → Times. Headings stay Fraunces,
+       labels/eyebrows/numbers stay IBM Plex Mono. Type only. */
+    .cs-hero-lede,
+    .cs-meta-col p,
+    .cs-pull-quote,
+    .cs-constraint,
+    .phase-desc,
+    .posture-verdict,
+    .posture-note,
+    .ledger-block .ledger-row .ledger-conds,
+    .crit-card .crit-foot,
+    .why-callout .why-body,
+    .push-callout .push-body,
+    .cs-serif-quote { font-family: var(--body); }
+  </style>
+  <script src="cursor-trail.js" defer></script>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand" style="display:flex;align-items:center;gap:0.6rem;">
+      <img src="logo/green-logo.png" alt="Rt" style="height:44px;width:auto;display:block;">
+    </a>
+    <nav class="nav">
+      <a class="nav__link is-active" href="work.html">Work</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+    </nav>
+    <span class="header-index">Project 02 / Research</span>
+  </div>
+</header>
+
+<!-- ── Banner ── -->
+<figure class="case-hero">
+  <img src="images/physical-ergonomics-banner.jpg" alt="Garland makers at work — Alandi flower market" loading="eager" decoding="async">
+</figure>
+
+<main>
+<div class="cs-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="cs-hero">
+    <div class="cs-hero-top">
+      <span class="label">Project 02 / Research</span>
+      <span class="label">Alandi · November 2023</span>
+    </div>
+    <h1>Physical <em>Ergonomics.</em></h1>
+    <p class="cs-hero-lede">An ergonomic study of garland makers in Alandi, making the physical risks embedded in a craft visible, that the discipline of ergonomics had never measured.</p>
+    <div class="cs-meta-strip">
+      <div class="cs-meta-col">
+        <p class="label">Type</p>
+        <p>UX Research<br>+ Ergonomic analysis</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Duration</p>
+        <p>2 weeks<br>Nov 2023</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Team</p>
+        <p>Group of 3<br>MIT Alandi</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">My role</p>
+        <p>Field observation · Posture analysis · Synthesis · Risk scoring · Visual communication</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ── CONTENTS ── -->
+  <nav class="cs-contents">
+    <div class="cs-contents-inner">
+      <p class="label">Contents</p>
+      <ol class="cs-contents-list">
+        <li><a href="#s01">The question nobody had asked</a><span class="num">01</span></li>
+        <li><a href="#s02">Pooja &amp; Dilip, fourth generation</a><span class="num">02</span></li>
+        <li><a href="#s03">The field</a><span class="num">03</span></li>
+        <li><a href="#s04">The work itself</a><span class="num">04</span></li>
+        <li><a href="#s05">Tools of the trade</a><span class="num">05</span></li>
+        <li><a href="#s06">When observation became measurement</a><span class="num">06</span></li>
+        <li><a href="#s07">Every part of the day, quantified</a><span class="num">07</span></li>
+        <li><a href="#s08">The harm gets a name</a><span class="num">08</span></li>
+        <li><a href="#s09">The problem we chose to design for</a><span class="num">09</span></li>
+        <li><a href="#s10">What I took from this</a><span class="num">10</span></li>
+        <li><a href="#s11">The full assessment record</a><span class="num">11</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── S01: Origin ── -->
+  <hr class="rule">
+  <section id="s01" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">01</span>
+        <span class="cs-section-cat">Origin</span>
+      </div>
+      <div>
+        <h2>The question nobody had <em>asked.</em></h2>
+        <p style="margin: 0px 0px 26px">Ergonomic assessment has never been done for traditional Indian craft trades. We noticed garland makers working long hours near the Alandi temple in postures that no chair or workbench had ever been designed for and chose them as the subject precisely because no one in the discipline that should have studied them had.</p>
+        <p>The brief asked us to investigate physical ergonomics in a local context.  
+We chose the trade that was both highly skilled and entirely undocumented.</p>
+        <blockquote class="cs-constraint" style="font-size: 16px">
+          <span class="cs-constraint-label" style="font-size: 16px">Constraint</span>
+          One week of field access during a busy festival season. We could observe and interview between sales but never interrupt the work itself.
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S02: The people ── -->
+  <hr class="rule">
+  <section id="s02" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">02</span>
+        <span class="cs-section-cat">The people</span>
+      </div>
+      <div>
+        <h2>Pooja &amp; Dilip <em>Uddave.</em></h2>
+        <p>Pooja and Dilip run a fourth-generation garland-making business at Kamble Wada, Alandi.</p>
+        <div class="people-block">
+          <div class="img-ph is-circle has-img people-portrait" style="width: 220px; height: 220px">
+            <img src="images/ergo/uddave-portrait.jpg" alt="Pooja and Dilip Uddave" loading="lazy">
+          </div>
+          <div class="people-card" style="width: 689px; padding: 0px 0px 0px 65px; height: 130px; border-width: 27px 0px 0px; border-color: rgba(185, 177, 163, 0)">
+            <p class="people-name">The Uddave family</p>
+            <p class="people-detail" style="line-height: 2.5">GARLAND MAKERS · KAMBLE WADA, ALANDI 
+EMPLOYS 3 WOMEN WORKERS
+8–10 YEARS WORKING EXPERIENCE</p>
+          </div>
+        </div>
+        <p>
+</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S03: The field ── -->
+  <hr class="rule">
+  <section id="s03" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">03</span>
+        <span class="cs-section-cat">The field</span>
+      </div>
+      <div>
+        <h2>A workspace shaped by what it <em>had to be.</em></h2>
+        <p>The space shapes what's possible. The shop runs 12.7 metres wide and divides into three working zones and none of them designed, but inherited. We documented both how the zones overlap in use, and the raw dimensions of the workstation itself.</p>
+        <div class="zones-grid">
+          <div>
+            <div class="img-ph has-img">
+              <img src="images/ergo/zones.jpg" alt="Workspace primary, secondary, tertiary zones" loading="lazy">
+            </div>
+            <p class="fig-caption">Fig. 01 · Use zones</p>
+          </div>
+          <div>
+            <div class="img-ph has-img">
+              <img src="images/ergo/FP.jpg" alt="Workstation floor plan 12.7m × 5.01m" loading="lazy">
+            </div>
+            <p class="fig-caption">Fig. 02 · Dimensions</p>
+          </div>
+        </div>
+        <p>The workstation runs 85 cm deep, sized for storage, not for the body working at it. The 1.85 m flower-sorting area sits at floor level, requiring constant crouching. The customer area is uncovered and standing-only.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S04: The work itself ── -->
+  <hr class="rule">
+  <section id="s04" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">04</span>
+        <span class="cs-section-cat">The work itself</span>
+      </div>
+      <div>
+        <h2>What a working day actually <em>contains.</em></h2>
+        <p>Before measuring physical cost, we needed the sequence of tasks. The working day breaks into two phases - stock preparation in the morning, then production and sale across the rest of the day. Knowing what repeats, and how often, was the prerequisite for everything that followed.</p>
+        <div class="phase-strip">
+          <div class="phase-row">
+            <span class="phase-tag">Phase 01</span>
+            <span class="phase-desc">Segregate stock · fill crates · sort by flower type · carry to godown</span>
+          </div>
+          <div class="phase-row">
+            <span class="phase-tag">Phase 02</span>
+            <span class="phase-desc">Thread + needle · stitch garland · finish designs · display &amp; sell</span>
+          </div>
+        </div>
+        <div class="process-grid">
+          <div>
+            <div class="img-ph has-img">
+              <img src="images/ergo/process-01.jpg" alt="Segregating stock" loading="lazy">
+            </div>
+            <p class="fig-caption">Segregating stock</p>
+          </div>
+          <div>
+            <div class="img-ph has-img">
+              <img src="images/ergo/process-02.jpg" alt="Stitching garlands" loading="lazy">
+            </div>
+            <p class="fig-caption">Stitching garlands</p>
+          </div>
+        </div>
+        <p>Most tasks repeat hundreds of times per day. The few that don't like carrying crates between godown and stall, for instance happen quite often. The next two sections measure both kinds of cost.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S05: Tools ── -->
+  <hr class="rule">
+  <section id="s05" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">05</span>
+        <span class="cs-section-cat">Tools</span>
+      </div>
+      <div>
+        <h2>Improvised by <em>necessity.</em></h2>
+        <p>Four tools handle the whole production: a thread and needle, a razor blade, a pair of scissors, and a reused plastic bottle for misting the flowers. None purpose-built; all repurposed. The bottle in particular used as a humidifier for hours, represents the kind of make-do adaptation that an outside designer would never propose, but that the work demands.</p>
+        <div class="tool-grid">
+          <div class="img-ph has-img">
+            <img src="images/ergo/tool-thread.jpg" alt="Thread and needle" loading="lazy" style="width: 242px; height: 251px">
+          </div>
+          <div class="img-ph has-img">
+            <img src="images/ergo/tool-blade.jpg" alt="Razor blade" loading="lazy">
+          </div>
+          <div class="img-ph has-img">
+            <img src="images/ergo/tool-bottle.jpg" alt="Reused plastic misting bottle" loading="lazy">
+          </div>
+          <div class="img-ph has-img">
+            <img src="images/ergo/tool-scissors.jpg" alt="Scissors" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S06: Measurement ── -->
+  <hr class="rule">
+  <section id="s06" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">06</span>
+        <span class="cs-section-cat">Measurement</span>
+      </div>
+      <div>
+        <h2>When observation became <em>measurement.</em></h2>
+        <p>Anyone can say this work looks hard. Numbers say how hard, and require action. We used RULA (Rapid Upper Limb Assessment) and REBA (Rapid Entire Body Assessment) — standard tools from occupational ergonomics — and scored the two postures that defined the working day.</p>
+        <div class="posture-grid">
+          <div class="posture-card">
+            <p class="posture-label">Posture 01 · Haar making</p>
+            <div class="img-ph has-img">
+              <img src="images/ergo/haar-making.jpg" alt="Seated floor-level garland-making posture" loading="lazy">
+            </div>
+            <div class="score-row">
+              <div class="score-block">
+                <p class="score-label">RULA</p>
+                <div class="score-num">6</div>
+              </div>
+              <div class="score-block">
+                <p class="score-label">REBA</p>
+                <div class="score-num">8</div>
+              </div>
+            </div>
+            <p class="posture-verdict">High risk. Action necessary soon.</p>
+            <p class="posture-note">Held 6+ hours daily. The score captures one moment of what is a sustained posture.</p>
+          </div>
+          <div class="posture-card">
+            <p class="posture-label">Posture 02 · Crate carrying</p>
+            <div class="img-ph has-img">
+              <img src="images/ergo/crate-carrying.jpg" alt="Worker carrying stacked crates downstairs" loading="lazy">
+            </div>
+            <div class="score-row">
+              <div class="score-block">
+                <p class="score-label">RULA</p>
+                <div class="score-num">6</div>
+              </div>
+              <div class="score-block">
+                <p class="score-label">REBA</p>
+                <div class="score-num is-alarm">10</div>
+              </div>
+            </div>
+            <p class="posture-verdict is-alarm">Very high risk. Action necessary now.</p>
+            <p class="posture-note">Highest single score in the study. Repeated several times per day under heavy load.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S07: Cumulative load ── -->
+  <hr class="rule">
+  <section id="s07" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">07</span>
+        <span class="cs-section-cat">Cumulative load</span>
+      </div>
+      <div>
+        <h2>Every part of the day, <em>quantified.</em></h2>
+        <p>Two postures are two moments. We needed to know whether the rest of the working day was equally taxing. Using the Washington State Risk Factor Analysis Checklist, we scored every category across the working shift.</p>
+        <div class="day-grid">
+          <div class="day-total">
+            <p class="day-total-label">Total score</p>
+            <div class="day-total-num">17</div>
+            <p class="day-total-foot">Action required</p>
+          </div>
+          <div class="day-list">
+            <div class="day-row"><span>Repetitive motion</span><span class="day-row-val">1</span></div>
+            <div class="day-row"><span>Awkward neck</span><span class="day-row-val">2</span></div>
+            <div class="day-row"><span>Hand pinch grip</span><span class="day-row-val">2</span></div>
+            <div class="day-row"><span>Extended shoulder reach</span><span class="day-row-val">2</span></div>
+            <div class="day-row"><span>Hand / wrist bend</span><span class="day-row-val">1</span></div>
+            <div class="day-row"><span>Unsupported posture</span><span class="day-row-val">2</span></div>
+            <div class="day-row"><span>High visibility demand</span><span class="day-row-val">2</span></div>
+            <div class="day-row"><span>Lift / lower</span><span class="day-row-val">2</span></div>
+            <div class="day-row"><span>Carry 10+ feet</span><span class="day-row-val">3</span></div>
+            <div class="day-row"><span>Push / pull</span><span class="day-row-val">0</span></div>
+          </div>
+        </div>
+        <p>A score of 17 sits above the threshold where intervention is required across the whole job — not just any one task. Every category contributed; no part of the day was risk-free.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S08: Clinical names ── -->
+  <hr class="rule">
+  <section id="s08" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">08</span>
+        <span class="cs-section-cat">Clinical names</span>
+      </div>
+      <div>
+        <h2>The harm gets a <em>name.</em></h2>
+        <p>Risk scores are abstract. Clinical diagnoses are not. We mapped each daily task to the musculoskeletal disorders it is documented to cause — the standard ergonomics → MSDS translation that turns observation into medical evidence.</p>
+        <div class="ledger-block">
+          <div class="ledger-head">
+            <div>Daily task</div>
+            <div>Documented condition</div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-task">Carrying crates</div>
+            <div class="ledger-conds">Herniated disc · Sciatica · Knee bursitis · Hamstring strain</div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-task">Stitching garlands</div>
+            <div class="ledger-conds">Repetitive strain · Tenosynovitis · Tunnel syndrome</div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-task">Segregating flowers</div>
+            <div class="ledger-conds">Trigger finger · Tarsal tunnel · Rotator cuff · Epicondylitis</div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-task">Prolonged standing</div>
+            <div class="ledger-conds">Lower limb disorder · Repetitive strain · Back pain</div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-task">Working in poor light</div>
+            <div class="ledger-conds">Eye strain syndrome</div>
+          </div>
+        </div>
+        <p>This is where the project became impossible to dismiss. The harm has names that doctors already know.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S09: Design choice ── -->
+  <hr class="rule">
+  <section id="s09" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">09</span>
+        <span class="cs-section-cat">Design choice</span>
+      </div>
+      <div>
+        <h2>The problem I chose to design <em>for.</em></h2>
+        <p>Three critical problems surfaced from the analysis. With three of us on the team, we split — each took one. Two teammates took crate carrying and the haar-making posture. I chose the workstation.</p>
+        <div class="funnel-row">
+          <div class="funnel-dots" aria-label="10 dots, 3 chosen">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span>
+            <span class="is-chosen"></span><span class="is-chosen"></span><span class="is-chosen"></span>
+          </div>
+          <span class="funnel-step">10 observed →</span>
+          <span class="funnel-final">3 critical.</span>
+        </div>
+        <div class="crit-grid">
+          <div class="crit-card">
+            <p class="crit-tag">Problem 01</p>
+            <p class="crit-title">Crate carrying</p>
+            <p class="crit-meta">REBA 10 · highest</p>
+            <p class="crit-foot">Owned by teammate</p>
+          </div>
+          <div class="crit-card">
+            <p class="crit-tag">Problem 02</p>
+            <p class="crit-title">Garland-making posture</p>
+            <p class="crit-meta">REBA 8 · 6+ hrs/day</p>
+            <p class="crit-foot">Owned by teammate</p>
+          </div>
+          <div class="crit-card is-chosen">
+            <p class="crit-tag">Problem 03 · Mine</p>
+            <p class="crit-title">The unsafe workstation</p>
+            <p class="crit-meta">Safety score 1 / 5</p>
+            <p class="crit-foot">Affects every task in the day.</p>
+          </div>
+        </div>
+
+        <div class="concept-block">
+          <p class="concept-subhead">Initial concepts</p>
+          <div class="concept-grid">
+            <div class="img-ph has-img">
+              <img src="images/ergo/concept-01.jpg" alt="Workstation concept render 01" loading="lazy">
+            </div>
+            <div class="img-ph has-img">
+              <img src="images/ergo/concept-02.jpg" alt="Workstation concept render 02" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S10: Reflection ── -->
+  <hr class="rule">
+  <section id="s10" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">10</span>
+        <span class="cs-section-cat">Reflection</span>
+      </div>
+      <div>
+        <h2>What I took from <em>this.</em></h2>
+        <p class="cs-serif-quote">The most important outcome of this study isn't a workstation design. It's making invisible harm visible.</p>
+        <p>A workstation redesign would address symptoms. What the discipline of ergonomics needs first is to recognise informal craft trades as legitimate subjects of study — not as edge cases, but as the daily working conditions of millions of people whose bodies have never been counted. A REBA score of 10 had been sitting in plain sight for generations of Uddave family members. We were the first to put a number on it.</p>
+        <p>The project also taught me to separate methodological rigour from design priority. The highest score doesn't automatically become the brief. Field measurement told us what was hurting; design judgment told us where to begin.</p>
+        <div class="push-callout">
+          <p class="push-label">What I'd push further</p>
+          <p class="push-body">Translate the findings into a one-page brief in Marathi for the workers themselves. This project documented harm but didn't yet return anything to the community that surfaced it. The next phase belongs to them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S11: Assessment appendix ── -->
+  <hr class="rule">
+  <section id="s11" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">11</span>
+        <span class="cs-section-cat">Assessments</span>
+      </div>
+      <div>
+        <h2>The full assessment <em>record.</em></h2>
+        <p>A nine-sheet observational study translating posture, motion, and environment into measurable musculo-skeletal risk. Available as a single PDF for anyone reviewing the methodology.</p>
+        <div class="appendix-grid">
+          <div class="appendix-thumb">
+            <img src="images/ergo/assessment-cover.jpg" alt="Ergonomic assessment PDF cover" loading="lazy">
+          </div>
+          <div>
+            <p class="label" style="margin-bottom: 0.4rem;">Contains</p>
+            <ul class="appendix-list">
+              <li>Workspace Analysis Checklist</li>
+              <li>Risk Factor Analysis Checklist</li>
+              <li>Task → MSDS mapping</li>
+              <li>RULA — haar making</li>
+              <li>REBA Assessment Worksheet — haar making</li>
+              <li>RULA — crate carrying</li>
+              <li>REBA Assessment Worksheet — crate carrying</li>
+              <li>Ergonomic Assessment Checklist</li>
+            </ul>
+            <a class="appendix-cta" href="pdfs/ergo/ergonomic_assessment.pdf" download>
+              <span>Download PDF</span>
+              <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer nav ── -->
+  <hr class="rule">
+  <div class="cs-footer-nav">
+    <div class="cs-footer-prev">
+      <p class="label" style="margin-bottom:0.3rem;">← Previous</p>
+      <a class="cs-foot-title" href="vocal-for-local.html">Vocal for Local</a>
+    </div>
+    <div class="cs-footer-next">
+      <p class="label" style="margin-bottom:0.3rem;">Next →</p>
+      <a class="cs-foot-title" href="sound-as-structure.html">Sound as Structure</a>
+    </div>
+  </div>
+
+</div><!-- /.cs-wrap -->
+</main>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span class="ticker__item">Embodied Research</span>
+      <span class="ticker__item">Fieldwork</span>
+      <span class="ticker__item">Posture Analysis</span>
+      <span class="ticker__item">Craft Trades</span>
+      <span class="ticker__item">RULA · REBA</span>
+      <span class="ticker__item">Human Behaviour</span>
+    </div>
+    <div class="ticker__group">
+      <span class="ticker__item">Embodied Research</span>
+      <span class="ticker__item">Fieldwork</span>
+      <span class="ticker__item">Posture Analysis</span>
+      <span class="ticker__item">Craft Trades</span>
+      <span class="ticker__item">RULA · REBA</span>
+      <span class="ticker__item">Human Behaviour</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

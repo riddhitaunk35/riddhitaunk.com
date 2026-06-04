@@ -2,7 +2,36 @@
   "permissions": {
     "allow": [
       "Bash(git add *)",
-      "Bash(git commit -q -m 'Build minimal editorial portfolio \\(Home, Work, About\\) *)"
+      "Bash(git commit -q -m 'Build minimal editorial portfolio \\(Home, Work, About\\) *)",
+      "Bash(gh api *)",
+      "Bash(python3 -c \"import sys,json; [print\\(x['type'], x['path'], x.get\\('size',''\\)\\) for x in json.load\\(sys.stdin\\)]\")",
+      "Bash(curl -s \"https://api.github.com/repos/anthropics/skills/contents/skills/frontend-design\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(type\\(d\\)\\); [print\\(x['type'], x['path'], x.get\\('size',''\\)\\) for x in d] if isinstance\\(d,list\\) else print\\(d\\)\")",
+      "Bash(echo \"---EXIT:$?---\")",
+      "Bash(curl -sS -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(curl -sS \"https://api.github.com/repos/anthropics/skills/contents/skills/frontend-design\" -o /tmp/skill_listing.json)",
+      "Bash(echo \"done exit $?\")",
+      "Bash(curl -sS \"https://api.github.com/repos/anthropics/skills/contents/skills/frontend-design\" -o ._skill_listing.json)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(python3 -c \"import sys; data=open\\('/Users/riddhitaunk/Desktop/portfolio website/._skill_listing.json'\\).read\\(\\); sys.stderr.write\\(data[:2000]\\); sys.exit\\(2\\)\")",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -fsSL \"https://api.github.com/repos/nextlevelbuilder/ui-ux-pro-max-skill/contents/\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(x['type'], x['name'], x.get\\('size',''\\)\\) for x in d]\")",
+      "Bash(curl -fsSL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/package.json\")",
+      "Bash(curl -fsSL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/skill.json\")",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl -fsSL \"https://registry.npmjs.org/ui-ux-pro-max-skill\" -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -fsSL \"https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/README.md\")",
+      "Bash(rm -rf \"/Users/riddhitaunk/Desktop/portfolio website/.claude/skills/ui-ux-pro-max\")",
+      "Bash(npm -v)",
+      "Bash(npm install *)",
+      "Bash(uipro --version)",
+      "Bash(uipro init *)",
+      "Bash(zsh -lic 'echo \"PATH=$PATH\"')",
+      "Bash(/opt/homebrew/bin/brew list *)",
+      "Bash(/opt/homebrew/bin/brew info *)",
+      "Bash(/opt/homebrew/bin/brew install *)"
     ]
   }
 }

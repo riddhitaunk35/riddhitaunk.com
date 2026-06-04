@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocal for Local — Riddhi Taunk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Page shell ── */
+    .cs-wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter); }
+
+    /* ── Header (reuses site.css classes) ── */
+    .site-header .wrap { grid-template-columns: auto 1fr auto; }
+
+    /* ── Hero ── */
+    .cs-hero { padding: clamp(3.5rem,9vh,7rem) 0 clamp(2rem,4vh,3.5rem); }
+    .cs-hero-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: clamp(2.5rem,5vh,4rem);
+    }
+    .cs-hero h1 {
+      font-family: var(--serif); font-optical-sizing: auto;
+      font-size: clamp(3.78rem,8vw,8rem); font-weight: 500;
+      letter-spacing: -0.035em; line-height: 0.9;
+      margin: 0 0 clamp(1.2rem,2.5vh,2rem);
+    }
+    .cs-hero h1 em { font-weight: 300; }
+    .cs-hero-lede {
+      font-family: var(--mono);
+      font-size: clamp(1.24rem,1.7vw,1.53rem); line-height: 1.6;
+      color: var(--muted); max-width: 62ch; margin: 0 0 clamp(2rem,4vh,3.5rem);
+    }
+    .cs-meta-strip {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; border-top: 1px solid var(--line-2);
+      padding-top: clamp(1.2rem,2.5vh,2rem); margin-top: clamp(1.2rem,2.5vh,2rem);
+    }
+    .cs-meta-col { padding-right: 1.5rem; }
+    .cs-meta-col + .cs-meta-col { border-left: 1px solid var(--line); padding-left: 1.5rem; }
+    .cs-meta-col .label { margin-bottom: 0.5rem; }
+    .cs-meta-col p { font-family: var(--mono); font-size: 1.09rem; line-height: 1.45; margin: 0; }
+
+    /* ── Contents ── */
+    .cs-contents { padding: clamp(2rem,4vh,3rem) 0; }
+    .cs-contents-inner { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; align-items: start; padding-top: 1.5rem; }
+    .cs-contents-list { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 3rem; }
+    .cs-contents-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.06rem; }
+    .cs-contents-list a { color: var(--muted); transition: color 0.3s var(--ease); flex: 1; }
+    .cs-contents-list a:hover { color: var(--ink); }
+    .cs-contents-list .num { font-family: var(--mono); font-size: 0.77rem; letter-spacing: 0.18em; color: var(--muted); white-space: nowrap; align-self: center; }
+
+    /* ── Section scaffold ── */
+    .cs-section { padding: 64px 0; }
+    .cs-section-grid { display: grid; grid-template-columns: 80px 1fr; gap: clamp(1.5rem,3vw,3rem); align-items: start; }
+    .cs-section-left { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.25rem; }
+    .cs-section-num { font-family: var(--mono); font-size: 1.89rem; font-weight: 400; color: var(--line-2); line-height: 1; }
+    .cs-section-cat { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); line-height: 1.4; }
+    .cs-section h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.53rem,2.2vw,2.12rem); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 1.2rem; }
+    .cs-section h2 em { font-weight: 300; }
+    .cs-section p { margin: 0 0 1rem; font-size: 1.18rem; line-height: 1.7; }
+    .cs-section p:last-child { margin-bottom: 0; }
+    .cs-pull-quote { font-family: var(--mono); font-size: clamp(1.42rem,2vw,1.83rem); line-height: 1.5; color: var(--ink); margin: 0 0 1.5rem; font-weight: 300; }
+
+    /* ── Method blocks ── */
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 2rem; }
+    .method-block { border-top: 1px solid var(--line-2); padding: 1.5rem 1.5rem 1.5rem 0; }
+    .method-block:nth-child(even) { padding-left: 1.5rem; border-left: 1px solid var(--line); }
+    .method-block .label { margin-bottom: 0.6rem; }
+    .method-block h3 { font-family: var(--serif); font-size: 1.18rem; font-weight: 500; margin: 0 0 0.5rem; line-height: 1.3; }
+    .method-block p { font-size: 1rem; color: var(--muted); margin: 0; line-height: 1.6; }
+    .method-block p + p { margin-top: 0.4rem; }
+
+    /* ── Sample strip ── */
+    .sample-strip { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line-2); display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .sample-big { font-family: var(--serif); font-optical-sizing: auto; font-size: clamp(4.13rem,7vw,6.49rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.04em; margin: 0 0 0.9rem; }
+    .sample-desc { font-family: var(--mono); font-size: 0.77rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill { font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.7rem; border: 1px solid var(--line-2); color: var(--muted); }
+
+    /* ── Shop grid ── */
+    .shop-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2rem; }
+    .shop-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 1px solid var(--line); filter: grayscale(1); display: block; }
+    .shop-card-name { font-family: var(--mono); font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; margin: 0.6rem 0 0.2rem; color: var(--ink); }
+    .shop-card-note { font-family: var(--mono); font-size: 0.97rem; color: var(--muted); margin: 0; }
+    .shop-caption { margin-top: clamp(48px, 6vw, 96px); font-family: var(--mono); font-size: 1.04rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Findings ── */
+    .findings-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 1.5rem; }
+    .finding { border-top: 2px solid var(--ink); padding: 1.5rem 2rem 1.5rem 0; }
+    .finding + .finding { padding-left: 2rem; border-left: 1px solid var(--line); }
+    .finding .label { margin-bottom: 0.8rem; }
+    .finding-frac { display: flex; align-items: baseline; gap: 0.3rem; margin-bottom: 0.6rem; }
+    .finding-num { font-family: var(--serif); font-optical-sizing: auto; font-size: clamp(3.54rem,5vw,5.31rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.04em; }
+    .finding-denom { font-family: var(--serif); font-size: 1.3rem; color: var(--muted); }
+    .finding h3 { font-family: var(--serif); font-size: 1.18rem; font-weight: 500; margin: 0 0 0.4rem; }
+    .finding p { font-size: 1rem; color: var(--muted); margin: 0; line-height: 1.6; }
+
+    /* ── Affinity strip ── */
+    .affinity-strip { display: grid; grid-template-columns: repeat(6,1fr); gap: 0; margin-top: 2rem; }
+    .affinity-col { padding: 1.2rem 1rem; border-left: 3px solid; }
+    .affinity-col .label { font-size: 0.68rem; margin-bottom: 0.5rem; }
+    .affinity-col h4 { font-family: var(--serif); font-size: 1.12rem; font-weight: 500; margin: 0 0 0.35rem; line-height: 1.2; }
+    .affinity-col .code-count { font-family: var(--mono); font-size: 0.71rem; color: var(--muted); letter-spacing: 0.1em; }
+    .affinity-caption { margin-top: 1.2rem; font-family: var(--mono); font-size: 1.04rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Empathy map ── */
+    .empathy-outer { display: grid; grid-template-columns: 200px 1fr; gap: 2.5rem; margin-top: 2rem; align-items: start; }
+    .empathy-portrait img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; object-position: top; filter: grayscale(1); border: 1px solid var(--line); }
+    .empathy-name { font-family: var(--serif); font-size: 1.24rem; font-weight: 500; margin: 0.9rem 0 0.2rem; }
+    .empathy-detail { font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); line-height: 1.8; }
+    .empathy-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
+    .empathy-cell { padding: 1.2rem 1.4rem; border: 1px solid var(--ink); }
+    .empathy-cell .label { font-size: 0.71rem; margin-bottom: 0.6rem; }
+    .empathy-cell p { font-size: 1.04rem; line-height: 1.6; margin: 0; color: var(--muted); }
+
+    /* ── Insight callout ── */
+    .insight-callout { background: #1a1a1a; color: var(--paper); padding: clamp(2rem,4vh,3rem) clamp(1.5rem,3vw,3rem); margin-top: 2.5rem; }
+    .insight-callout .label { color: var(--muted); margin-bottom: 1rem; }
+    .insight-callout p { font-family: var(--mono); font-size: clamp(1.3rem,1.8vw,1.65rem); line-height: 1.6; margin: 0; font-weight: 300; }
+
+    /* ── Pivot ── */
+    .pivot-grid { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; margin-top: 2rem; align-items: stretch; }
+    .pivot-arrow { display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 2.12rem; color: var(--muted); }
+    .pivot-panel { padding: 2rem; border: 1px solid var(--line); }
+    .pivot-panel--dark { background: #1a1a1a; color: var(--paper); border-color: transparent; }
+    .pivot-panel .pivot-label { font-family: var(--mono); font-size: 0.71rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+    .pivot-panel--dark .pivot-label { color: var(--muted); }
+    .pivot-panel blockquote { font-family: var(--mono); font-size: clamp(1.18rem,1.6vw,1.53rem); line-height: 1.5; margin: 0 0 1rem; font-weight: 300; }
+    .pivot-panel--dark blockquote { color: var(--paper); }
+    .pivot-panel small { font-size: 0.97rem; color: var(--muted); line-height: 1.5; display: block; }
+    .pivot-panel--dark small { color: #8a8480; }
+
+    /* ── Horizon bands ── */
+    .horizon-band { display: grid; grid-template-columns: 140px 1fr; gap: 2rem; align-items: start; padding: 1.8rem 1.5rem; border-left: 3px solid; margin-bottom: 0; }
+    .horizon-band + .horizon-band { margin-top: 1.2rem; }
+    .horizon-left .label { margin-bottom: 0.4rem; }
+    .horizon-left .horizon-tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 0.6rem; }
+    .horizon-right h3 { font-family: var(--serif); font-size: 1.18rem; font-weight: 500; margin: 0 0 0.5rem; }
+    .horizon-right p { font-size: 1.04rem; color: var(--muted); margin: 0; line-height: 1.6; }
+
+    /* ── Section 08 reflection ── */
+    .cs-reflection-lead { font-family: var(--mono); font-size: clamp(1.53rem,2.2vw,2.12rem); font-weight: 400; letter-spacing: -0.015em; line-height: 1.4; margin: 0 0 1.5rem; }
+
+    /* ── Case hero image ── */
+    .case-hero {
+      max-width: var(--maxw);
+      margin: 0 auto 48px;
+      width: 100%;
+      padding-inline: var(--gutter);
+    }
+    .case-hero img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Footer nav ── */
+    .cs-footer-nav { border-top: 1px solid var(--line-2); padding: 2.5rem 0; display: flex; justify-content: space-between; align-items: center; }
+    .cs-footer-nav a { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); transition: color 0.3s var(--ease); }
+    .cs-footer-nav a:hover { color: var(--ink); }
+    .cs-footer-next { text-align: right; }
+    .cs-footer-next .label { margin-bottom: 0.3rem; }
+    .cs-footer-next a { font-family: var(--serif); font-size: 1.18rem; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--ink); }
+
+    @media (max-width: 768px) {
+      .cs-section-grid { grid-template-columns: 1fr; }
+      .cs-section-left { flex-direction: row; gap: 1rem; align-items: center; }
+      .cs-section-num { font-size: 1.18rem; }
+      .cs-meta-strip { grid-template-columns: 1fr 1fr; }
+      .cs-meta-col + .cs-meta-col:nth-child(3) { border-left: none; padding-left: 0; margin-top: 1.5rem; }
+      .affinity-strip { grid-template-columns: repeat(3,1fr); }
+      .empathy-outer { grid-template-columns: 1fr; }
+      .pivot-grid { grid-template-columns: 1fr; }
+      .pivot-arrow { padding: 1rem; }
+      .findings-strip { grid-template-columns: 1fr; }
+      .finding + .finding { border-left: none; padding-left: 0; border-top: 1px solid var(--line); margin-top: 1.5rem; }
+      .sample-strip { grid-template-columns: 1fr; }
+      .cs-contents-list { columns: 1; }
+      .shop-grid { grid-template-columns: repeat(2,1fr); }
+      .horizon-band { grid-template-columns: 1fr; }
+    }
+
+    /* ── Ticker (copied from Chrome.jsx + site.css) ── */
+    .ticker {
+      background: var(--black);
+      color: var(--paper);
+      overflow: hidden;
+      border-block: 1px solid var(--black);
+      padding-block: clamp(1rem, 1.6vw, 1.5rem);
+      user-select: none;
+    }
+    .ticker__track {
+      display: flex;
+      width: max-content;
+      animation: marquee 38s linear infinite;
+    }
+    .ticker:hover .ticker__track { animation-play-state: paused; }
+    .ticker__group { display: flex; flex-shrink: 0; }
+    .ticker__item {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.1rem, 2.6vw, 1.9rem);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      padding-inline: clamp(1rem, 2.2vw, 1.8rem);
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(1rem, 2.2vw, 1.8rem);
+    }
+    .ticker__item::after {
+      content: "✳";
+      font-size: 0.6em;
+      color: #8d877c;
+    }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ── PART A · 3-role type system ───────────────────────────────
+       Body (all paragraph text) → Times. Headings stay Fraunces,
+       labels/eyebrows/numbers stay IBM Plex Mono. Type only. */
+    .cs-hero-lede,
+    .cs-meta-col p,
+    .cs-pull-quote,
+    .shop-card-note,
+    .shop-caption,
+    .affinity-caption,
+    .insight-callout p,
+    .pivot-panel blockquote,
+    .cs-reflection-lead { font-family: var(--body); }
+  </style>
+  <script src="cursor-trail.js" defer></script>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand" style="display:flex;align-items:center;gap:0.6rem;">
+      <img src="logo/green-logo.png" alt="Rt" style="height:44px;width:auto;display:block;">
+    </a>
+    <nav class="nav">
+      <a class="nav__link is-active" href="work.html">Work</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="contact.html">Contact</a>
+    </nav>
+    <span class="header-index">Project 01 / Research</span>
+  </div>
+</header>
+
+<figure class="case-hero">
+  <img src="images/vocal-for-local-banner.jpg" alt="Four market vendors standing behind fruit baskets at a Pune street market" loading="eager" decoding="async">
+</figure>
+
+<main>
+<div class="cs-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="cs-hero">
+    <div class="cs-hero-top">
+      <span class="label">Project 01 / Research</span>
+      <span class="label">Pune · October 2023</span>
+    </div>
+    <h1>Vocal for <em>Local.</em></h1>
+    <p class="cs-hero-lede">A field study into how the shift to online shopping had reshaped the lives of Pune's market vendors during covid, and why the question we started with was the wrong one.</p>
+    <div class="cs-meta-strip">
+      <div class="cs-meta-col">
+        <p class="label">Type</p>
+        <p>UX Research (no build)</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Duration</p>
+        <p>2 weeks, Oct 18 — Oct 31 2023</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">Team</p>
+        <p>Group of 3
+MITsd Pune</p>
+      </div>
+      <div class="cs-meta-col">
+        <p class="label">MY ROLE</p>
+        <p>Questionnaire design · Field observation · Survey ·  Synthesis lead · Research findings · Insights · Visual communication &amp; presentation design</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ── CONTENTS ── -->
+  <nav class="cs-contents">
+    <div class="cs-contents-inner">
+      <p class="label">Contents</p>
+      <ol class="cs-contents-list">
+        <li><a href="#s01">The question we started with</a><span class="num">01</span></li>
+        <li><a href="#s02">How we went about it</a><span class="num">02</span></li>
+        <li><a href="#s03">The field</a><span class="num">03</span></li>
+        <li><a href="#s04">What the data showed</a><span class="num">04</span></li>
+        <li><a href="#s05">One vendor — Suresh</a><span class="num">05</span></li>
+        <li><a href="#s06">The pivot</a><span class="num">06</span></li>
+        <li><a href="#s07">Where design could go</a><span class="num">07</span></li>
+        <li><a href="#s08">What I took from this</a><span class="num">08</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ── S01: The question ── -->
+  <hr class="rule">
+  <section id="s01" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">01</span>
+        <span class="cs-section-cat">The Question</span>
+      </div>
+      <div>
+        <p class="cs-pull-quote" style="font-family: 'IBM Plex Mono'; font-size: 19px;">"The abrupt shift of shopping preference from offline to online and its impact on the local vendors and shopkeepers in Pune."</p>
+        <p>Local markets are central to daily life in Pune, yet vendors were visibly losing ground to online platforms. We wanted to know what was actually driving that beyond the obvious convenience story, and what it was doing to the people behind the stalls.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S02: Method ── -->
+  <hr class="rule">
+  <section id="s02" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">02</span>
+        <span class="cs-section-cat">Method</span>
+      </div>
+      <div>
+        <h2>Why interviews and observation, not just a <em>survey.</em></h2>
+        <p>A survey would have told us what people did. We wanted to know why. With a small sample (14 participants), we treated the constraint as a reason to go deep, not wide.</p>
+
+        <div class="method-grid">
+          <div class="method-block">
+            <p class="label">Interviews · 30–40 min</p>
+            <h3>Chosen because trust and bargaining behaviour only surface in conversation.</h3>
+            <p>This helped capture details that surveys could not.</p>
+          </div>
+          <div class="method-block">
+            <p class="label">Observation</p>
+            <h3>Chosen because what shopkeepers say differs from what they do at the counter.</h3>
+            <p>Captured layout, posture, customer interactions, body language.</p>
+          </div>
+          <div class="method-block">
+            <p class="label">Customer survey</p>
+            <h3>Used to triangulate vendor narratives against actual shopper behaviour.</h3>
+            <p>23 responses on platform preference, quality vs price, after-sale service.</p>
+          </div>
+          <div class="method-block">
+            <p class="label">Task analysis</p>
+            <h3>Compared step-counts of offline vs online buying to test convenience claims.</h3>
+            <p>Online consistently shorter; offline added trust steps (quality check, bargain).</p>
+          </div>
+        </div>
+
+        <div class="sample-strip">
+          <div style="grid-column: 1 / -1;">
+            <p class="label" style="margin-bottom: 1.25rem;">Who we spoke to · 36 conversations</p>
+          </div>
+          <div>
+            <div class="sample-big">13</div>
+            <p class="sample-desc">shopkeepers, in-depth</p>
+            <div class="pills">
+              <span class="pill">Grocery</span><span class="pill">Footwear</span><span class="pill">Electronics</span>
+              <span class="pill">Clothing</span><span class="pill">Medical</span><span class="pill">Fruits &amp; veg</span>
+            </div>
+          </div>
+          <div>
+            <div class="sample-big">23</div>
+            <p class="sample-desc">customer survey responses</p>
+            <div class="pills">
+              <span class="pill">Teenagers</span><span class="pill">Working class</span>
+              <span class="pill">Homemakers</span><span class="pill">Retired</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S03: The field ── -->
+  <hr class="rule">
+  <section id="s03" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">03</span>
+        <span class="cs-section-cat">The Field</span>
+      </div>
+      <div>
+        <h2>Six shops, walked, photographed, <em>sat in.</em></h2>
+        <div class="shop-grid">
+          <div class="shop-card">
+            <img src="images/vfl/shop-roshan.jpg" alt="Roshan Mens Fashion">
+            <p class="shop-card-name">Roshan Mens Fashion</p>
+            <p class="shop-card-note" style="font-size: 16px">Polite, patient, friendly</p>
+          </div>
+          <div class="shop-card">
+            <img src="images/vfl/shop-saiprasad.jpg" alt="Saiprasad Footwear">
+            <p class="shop-card-name">Saiprasad Footwear</p>
+            <p class="shop-card-note" style="font-size: 16px">Co-operative, playful with kids</p>
+          </div>
+          <div class="shop-card">
+            <img src="images/vfl/shop-raj.jpg" alt="Raj Electronics">
+            <p class="shop-card-name">Raj Electronics</p>
+            <p class="shop-card-note" style="font-size: 16px">Patient, smiling, frustrated underneath</p>
+          </div>
+          <div class="shop-card">
+            <img src="images/vfl/shop-panchdeep.jpg" alt="Panchdeep">
+            <p class="shop-card-name">Panchdeep</p>
+            <p class="shop-card-note" style="font-size: 16px">Helpful, attentive, calm</p>
+          </div>
+          <div class="shop-card">
+            <img src="images/vfl/shop-lifecare.jpg" alt="Life Care Medico">
+            <p class="shop-card-name">Life Care Medico</p>
+            <p class="shop-card-note" style="font-size: 16px">Sincere, cracking jokes with customers</p>
+          </div>
+          <div class="shop-card">
+            <img src="images/vfl/shop-mamta.jpg" alt="Mamta Mart">
+            <p class="shop-card-name">Mamta Mart</p>
+            <p class="shop-card-note" style="font-size: 16px">Ambitious, energetic, patient</p>
+          </div>
+        </div>
+        <p class="shop-caption">Observation matrix tracked sixteen behavioural traits across each shop. The pattern was almost uniform: shopkeepers were attentive, polite, and consistent — the problem wasn't service quality.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S04: What we found ── -->
+  <hr class="rule">
+  <section id="s04" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">04</span>
+        <span class="cs-section-cat">What We Found</span>
+      </div>
+      <div>
+        <h2>Two numbers <em>reframed</em> the project.</h2>
+        <div class="findings-strip">
+          <div class="finding">
+            <p class="label">Finding 01</p>
+            <div class="finding-frac">
+              <span class="finding-num">15</span>
+              <span class="finding-denom">/23</span>
+            </div>
+            <h3>customers use both online and offline platforms.</h3>
+            <p>The assumption that customers had "moved online" was false. Most were doing both, choosing per category, per moment.</p>
+          </div>
+          <div class="finding">
+            <p class="label">Finding 02</p>
+            <div class="finding-frac">
+              <span class="finding-num">16</span>
+              <span class="finding-denom">/23</span>
+            </div>
+            <h3>prioritise quality over price.</h3>
+            <p>The discount story was wrong. Customers weren't choosing online because it was cheaper but because they trusted it more.</p>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--line-2); margin-top: 2.5rem; padding-top: 1.5rem;">
+          <p class="label" style="margin-bottom:1.2rem;">Affinity mapping · six themes from 36 conversations</p>
+          <div class="affinity-strip">
+            <div class="affinity-col" style="border-color:#d85a30;background:rgba(216,90,48,0.06);">
+              <p class="label">01</p>
+              <h4>Pain points</h4>
+              <span class="code-count"></span>
+            </div>
+            <div class="affinity-col" style="border-color:#639922;background:rgba(99,153,34,0.06);">
+              <p class="label">02</p>
+              <h4>Discounts</h4>
+              <span class="code-count"></span>
+            </div>
+            <div class="affinity-col" style="border-color:#378add;background:rgba(55,138,221,0.06);">
+              <p class="label">03</p>
+              <h4>Covid</h4>
+              <span class="code-count"></span>
+            </div>
+            <div class="affinity-col" style="border-color:#ef9f27;background:rgba(239,159,39,0.06);">
+              <p class="label">04</p>
+              <h4>Services</h4>
+              <span class="code-count"></span>
+            </div>
+            <div class="affinity-col" style="border-color:#7f77dd;background:rgba(127,119,221,0.06);">
+              <p class="label">05</p>
+              <h4>Behaviour</h4>
+              <span class="code-count"></span>
+            </div>
+            <div class="affinity-col" style="border-color:#d4537e;background:rgba(212,83,126,0.06);">
+              <p class="label">06</p>
+              <h4>Motivation</h4>
+              <span class="code-count"></span>
+            </div>
+          </div>
+          <p class="affinity-caption">Six categories surfaced, but the pattern beneath them was singular: vendors weren't failing on product or effort. They were losing on perceived trust and convenience — a gap created by customer motivation, not vendor capability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S05: One vendor ── -->
+  <hr class="rule">
+  <section id="s05" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">05</span>
+        <span class="cs-section-cat">One Vendor</span>
+      </div>
+      <div>
+        <h2>Suresh <em>Chaudhary.</em></h2>
+        <p>To keep the research grounded in a real person rather than an abstract "user", we built an empathy map around one vendor — a grocery shopkeeper running a third-generation family business of twenty years.</p>
+        <div class="empathy-outer">
+          <div class="empathy-portrait">
+            <img src="images/vfl/suresh-portrait.png" alt="Suresh Chaudhary">
+            <p class="empathy-name">Suresh Chaudhary</p>
+            <p class="empathy-detail" style="font-size: 10px">Age 50<br>Grocery store owner<br>Pune · 20 years in trade<br>3rd-generation business</p>
+          </div>
+          <div class="empathy-grid">
+            <div class="empathy-cell">
+              <p class="label">Thinks &amp; feels</p>
+              <p>Frustrated by constant bargaining · insecure about the shift online · still proud of the family legacy.</p>
+            </div>
+            <div class="empathy-cell">
+              <p class="label">Sees</p>
+              <p>Fewer customers in store post-Covid · customers entering with phone screens, comparing prices.</p>
+            </div>
+            <div class="empathy-cell">
+              <p class="label">Hears</p>
+              <p>"This is cheaper on Amazon." · "Do you have this exact one?"</p>
+            </div>
+            <div class="empathy-cell">
+              <p class="label">Says &amp; does</p>
+              <p>Offers extra discounts and free delivery · matches online prices when pushed · stays polite, always.</p>
+            </div>
+          </div>
+        </div>
+        <div class="insight-callout">
+          <p class="label">Insight from Suresh</p>
+          <p>Suresh wasn't short on customers' goodwill. He was short on a reason for them to choose him over an app. That reframed the whole project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S06: The pivot ── -->
+  <hr class="rule">
+  <section id="s06" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">06</span>
+        <span class="cs-section-cat">The Pivot</span>
+      </div>
+      <div>
+        <h2>We were asking the <em>wrong</em> question.</h2>
+        <p>The data made one thing clear: vendors were not the broken part of the system, customer motivation was. People still valued local markets; they had simply lost the prompt to return.</p>
+        <div class="pivot-grid">
+          <div class="pivot-panel">
+            <p class="pivot-label" style="color:#d85a30;">Started with</p>
+            <blockquote>"How do we help vendors survive the shift to online shopping?"</blockquote>
+            <small>Treats vendors as the problem. Pushes the design toward propping up the supply side.</small>
+          </div>
+          <div class="pivot-arrow">→</div>
+          <div class="pivot-panel pivot-panel--dark">
+            <p class="pivot-label">Reframed as</p>
+            <blockquote>"Amidst online shopping, how might we motivate customers to return to offline markets and strengthen the local economy?"</blockquote>
+            <small>Moves the lever to the demand side. Treats the cause, not the symptom.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S07: Opportunities ── -->
+  <hr class="rule">
+  <section id="s07" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">07</span>
+        <span class="cs-section-cat">Opportunities</span>
+      </div>
+      <div>
+        <h2>Where design could <em>intervene.</em></h2>
+        <p>The output was not a product but a map. Three horizons of opportunity, ordered by distance from the existing market.</p>
+        <div style="margin-top:1.8rem; display:flex; flex-direction:column; gap:1.2rem;">
+          <div class="horizon-band" style="border-color:#d85a30;background:rgba(216,90,48,0.05);">
+            <div class="horizon-left">
+              <p class="label">Horizon 01</p>
+              <p class="horizon-tag" style="margin-top:0.4rem;">Current solutions</p>
+            </div>
+            <div class="horizon-right">
+              <h3>Existing market</h3>
+              <p>What already exists — Dunzo, Lovelocal. Hyperlocal delivery solving convenience, not motivation.</p>
+            </div>
+          </div>
+          <div class="horizon-band" style="border-color:#639922;background:rgba(99,153,34,0.05);">
+            <div class="horizon-left">
+              <p class="label">Horizon 02</p>
+              <p class="horizon-tag" style="margin-top:0.4rem;">Where the project lives</p>
+            </div>
+            <div class="horizon-right">
+              <h3>Existing need, unaddressed</h3>
+              <p>Surfacing local shops on Google · making in-store offers visible · affiliating local vendors with online discovery. Vocal for Local sits here.</p>
+            </div>
+          </div>
+          <div class="horizon-band" style="border-color: rgb(159, 179, 177); background: rgb(235, 235, 235)">
+            <div class="horizon-left">
+              <p class="label">Horizon 03</p>
+              <p class="horizon-tag" style="margin-top:0.4rem;">Speculative · long term</p>
+            </div>
+            <div class="horizon-right">
+              <h3>New need</h3>
+              <p>Civic campaigns repositioning local shopping as identity · area-code directories · trust-led platforms.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S08: Reflection ── -->
+  <hr class="rule">
+  <section id="s08" class="cs-section">
+    <div class="cs-section-grid">
+      <div class="cs-section-left">
+        <span class="cs-section-num">08</span>
+        <span class="cs-section-cat">Reflection</span>
+      </div>
+      <div>
+        <p class="cs-reflection-lead">Vocal for Local taught me that the most valuable thing research can do is change the question.</p>
+        <p>I came in expecting to document how vendors were struggling. I left understanding that the design problem lived with the customers, not the vendors. Working with a real community and vendors in particular is what made that shift visible.</p>
+        <p>
+</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer nav ── -->
+  <hr class="rule">
+  <div class="cs-footer-nav">
+    <a href="work.html">← Back to all work</a>
+    <div class="cs-footer-next">
+      <p class="label" style="margin-bottom:0.3rem;">Next project</p>
+      <a href="physical-ergonomics.html">Physical Ergonomics →</a>
+    </div>
+  </div>
+
+</div><!-- /.cs-wrap -->
+</main>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__group">
+      <span class="ticker__item">Community Listening</span>
+      <span class="ticker__item">Fieldwork</span>
+      <span class="ticker__item">Embodied Research</span>
+      <span class="ticker__item">Tactile Design</span>
+      <span class="ticker__item">Observations</span>
+      <span class="ticker__item">Human Behaviour</span>
+    </div>
+    <div class="ticker__group">
+      <span class="ticker__item">Community Listening</span>
+      <span class="ticker__item">Fieldwork</span>
+      <span class="ticker__item">Embodied Research</span>
+      <span class="ticker__item">Tactile Design</span>
+      <span class="ticker__item">Observations</span>
+      <span class="ticker__item">Human Behaviour</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

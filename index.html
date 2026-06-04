@@ -9,172 +9,172 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Final hero placement, carried over from the design tweaks. */
+    :root {
+      --hero-x: -46px;
+      --hero-y: -24px;
+      --hero-w: 28%;
+      --crowd-x: -40px;
+    }
+
+    /* Robust entrance: a JS-triggered transition instead of a bare
+       @keyframes (which can stall in throttled/embedded frames and
+       leave .reveal stuck at opacity:0). Same rise+fade gesture. */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: none;
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+    .reveal.is-in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.05s; }
+    .reveal.d2 { transition-delay: 0.18s; }
+    .reveal.d3 { transition-delay: 0.32s; }
+    .reveal.d4 { transition-delay: 0.46s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Tweakable hero text placement.
+       Left edge is aligned to the same content box as the header
+       wordmark (page gutter inside the centered max-width), with an
+       optional nudge via --hero-x. */
+    .hero__left {
+      left: calc(max(var(--gutter), (100vw - var(--maxw)) / 2 + var(--gutter)) + var(--hero-x, 0px));
+      top: calc(50% + var(--hero-y, 0px));
+      max-width: var(--hero-w, 42%);
+    }
+    .hero__crowd-wrap {
+      transform: translateX(var(--crowd-x, 0px));
+    }
+  </style>
+  <script src="cursor-trail.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="index.html">Riddhi Taunk<span class="dot">.</span></a>
+      <a class="brand" href="index.html" style="display:flex;align-items:center;gap:0.6rem;">
+        <img src="logo/green-logo.png" alt="Riddhi Taunk" />
+      </a>
       <nav class="nav" aria-label="Primary">
-        <a href="work.html">Work</a>
-        <a href="about.html">About</a>
-        <a href="mailto:riddhitaunk35@gmail.com">Contact</a>
+        <a class="nav__link" href="work.html">Work</a>
+        <a class="nav__link" href="about.html">About</a>
+        <a class="nav__link" href="contact.html">Contact</a>
       </nav>
       <span class="header-index">London · 2026</span>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="hero">
+    <!-- Hero — split layout: editorial intro left, interactive aerial-crowd right -->
+    <section class="hero" style="text-align:left;">
       <div class="hero__left">
-        <p class="hero__kicker reveal d1">UX Design Researcher <span aria-hidden="true">—</span> UAL, London</p>
-        <h1 class="hero__title reveal d2">Hi, <span class="accent">I&rsquo;m</span> Riddhi&nbsp;Taunk.</h1>
+        <h1 class="hero__title reveal d1" style="text-align:left;margin:0;border:0;padding:0;">Hi, <span class="accent">I&rsquo;m</span> Riddhi&nbsp;Taunk.</h1>
+        <p class="hero__kicker reveal d2" style="color:rgb(127,125,102);">UX Design Student at UAL London</p>
+        <p class="hero__intro reveal d3" style="font-family:Times;">My practice is built around one belief: that good design starts before any sketching happens. It starts with listening.</p>
       </div>
 
       <div class="hero__right reveal d3">
-        <img class="hero__crowd" src="images/crowd-figures.png" alt="Aerial black-and-white photograph of a crowd of people" />
+        <div class="hero__crowd-wrap">
+          <img class="hero__crowd" src="images/crowd-figures.png" alt="Aerial black-and-white photograph of a crowd of people" />
 
-        <!-- Interactive hotspots over figures in the crowd -->
-        <div class="hotspot hotspot--tl" tabindex="0" aria-label="Project: Vocal for Local">
-          <span class="hotspot__pulse" aria-hidden="true"></span>
-          <article class="card">
-            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
-            </svg>
-            <p class="card__cat">Community Listening</p>
-            <h3 class="card__title">Vocal for Local</h3>
-            <p class="card__meta">2024 · MIT Alandi, Pune · Group Project</p>
-            <p class="card__text">Street vendors in Pune were quietly losing customers as shopping moved online. Through conversations and market observations, we mapped what that shift actually cost the people living it.</p>
-            <img class="card__img" src="images/vocal-for-local.jpg" alt="Vocal for Local fieldwork" loading="lazy" />
-          </article>
-        </div>
+          <!-- Interactive hotspots over figures in the crowd -->
+          <div class="hotspot hotspot--tl" tabindex="0" aria-label="Project: Vocal for Local">
+            <span class="hotspot__pulse" aria-hidden="true"></span>
+            <a class="card" href="vocal-for-local.html" aria-label="View case study: Vocal for Local">
+              <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+              </svg>
+              <p class="card__cat">Community Listening</p>
+              <h3 class="card__title">Vocal for Local</h3>
+              <p class="card__meta">2024 · MIT Alandi, Pune · Group Project</p>
+              <p class="card__text">Street vendors in Pune were quietly losing customers as shopping moved online. Through conversations and market observations, we mapped what that shift actually cost the people living it.</p>
+              <span class="card__img-link">
+                <img class="card__img" src="images/vocal-for-local.jpg" alt="Vocal for Local" loading="lazy" />
+              </span>
+              <span class="card__view" style="display:block;margin-top:0.75rem;font-family:var(--mono);font-size:0.8125rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.3s var(--ease);">View Project →</span>
+            </a>
+          </div>
 
-        <div class="hotspot hotspot--tr" tabindex="0" aria-label="Project: Physical Ergonomics">
-          <span class="hotspot__pulse" aria-hidden="true"></span>
-          <article class="card">
-            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
-            </svg>
-            <p class="card__cat">Tactile Design</p>
-            <h3 class="card__title">Physical Ergonomics</h3>
-            <p class="card__meta">2024 · MIT Alandi, Pune · Group Project</p>
-            <p class="card__text">Garland makers absorb real physical harm from repetitive work. Using RULA and REBA assessments alongside fieldwork, we prototyped a rethought vending stall built around their bodies.</p>
-            <img class="card__img" src="images/physical-ergonomics.jpg" alt="Physical Ergonomics study" loading="lazy" />
-          </article>
-        </div>
+          <div class="hotspot hotspot--tr" tabindex="0" aria-label="Project: Physical Ergonomics">
+            <span class="hotspot__pulse" aria-hidden="true"></span>
+            <a class="card" href="physical-ergonomics.html" aria-label="View case study: Physical Ergonomics">
+              <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+              </svg>
+              <p class="card__cat">Project 02 / Research</p>
+              <h3 class="card__title">Physical Ergonomics</h3>
+              <p class="card__meta">Alandi · Nov 2023 · 2 weeks</p>
+              <p class="card__text">An ergonomic study of garland makers in Alandi — making visible the physical risks embedded in a craft that the discipline had never measured.</p>
+              <span class="card__img-link">
+                <img class="card__img" src="images/ergo/home-card.jpg" alt="Physical Ergonomics" loading="lazy" />
+              </span>
+              <span class="card__view" style="display:block;margin-top:0.75rem;font-family:var(--mono);font-size:0.8125rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.3s var(--ease);">View Project →</span>
+            </a>
+          </div>
 
-        <div class="hotspot hotspot--cl" tabindex="0" aria-label="Project: Sound as Structure">
-          <span class="hotspot__pulse" aria-hidden="true"></span>
-          <article class="card">
-            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
-            </svg>
-            <p class="card__cat">Sensory Environments</p>
-            <h3 class="card__title">Sound as Structure</h3>
-            <p class="card__meta">2025 · UAL London College of Communication · Researcher</p>
-            <p class="card__text">Sound shapes how well people think — but nobody treats it that way. I tracked sound levels across university spaces and visualised what&rsquo;s usually invisible.</p>
-            <img class="card__img" src="images/sound-as-structure.jpg" alt="Sound as Structure research" loading="lazy" />
-          </article>
-        </div>
+          <div class="hotspot hotspot--cl" tabindex="0" aria-label="Project: Sound as Structure">
+            <span class="hotspot__pulse" aria-hidden="true"></span>
+            <a class="card" href="sound-as-structure.html" aria-label="View case study: Sound as Structure">
+              <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+              </svg>
+              <p class="card__cat">Sensory Environments</p>
+              <h3 class="card__title">Sound as Structure</h3>
+              <p class="card__meta">2025 · UAL London College of Communication · Researcher</p>
+              <p class="card__text">Sound shapes how well people think — but nobody treats it that way. I tracked sound levels across university spaces and visualised what&rsquo;s usually invisible.</p>
+              <span class="card__img-link">
+                <img class="card__img" src="images/sound-as-structure.jpg" alt="Sound as Structure" loading="lazy" />
+              </span>
+              <span class="card__view" style="display:block;margin-top:0.75rem;font-family:var(--mono);font-size:0.8125rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.3s var(--ease);">View Project →</span>
+            </a>
+          </div>
 
-        <div class="hotspot hotspot--br" tabindex="0" aria-label="Project: Making as Enquiry">
-          <span class="hotspot__pulse" aria-hidden="true"></span>
-          <article class="card">
-            <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
-            </svg>
-            <p class="card__cat">Participatory Research</p>
-            <h3 class="card__title">Making as Enquiry</h3>
-            <p class="card__meta">2026 · UAL London College of Communication · Designer &amp; Researcher</p>
-            <p class="card__text">What if wayfinding worked through touch instead of sight? At Selfridges, I prototyped a tactile navigation system through material experiments and iterative making.</p>
-            <img class="card__img" src="images/making-as-enquiry.jpg" alt="Making as Enquiry prototype" loading="lazy" />
-          </article>
+          <div class="hotspot hotspot--br" tabindex="0" aria-label="Project: Making as Enquiry">
+            <span class="hotspot__pulse" aria-hidden="true"></span>
+            <a class="card" href="making-as-enquiry.html" aria-label="View case study: Making as Enquiry">
+              <svg class="card__clip" width="20" height="40" viewBox="0 0 20 40" fill="none" stroke="#a39c90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 11v17a6 6 0 0 1-12 0V9a4 4 0 0 1 8 0v18a2 2 0 0 1-4 0V12" />
+              </svg>
+              <p class="card__cat">Observational Research</p>
+              <h3 class="card__title">Making as Enquiry</h3>
+              <p class="card__meta">2026 · UAL London College of Communication · Group Project</p>
+              <p class="card__text">What if wayfinding worked through touch instead of sight? We prototyped a tactile navigation system through material experiments and iterative making.</p>
+              <span class="card__img-link">
+                <img class="card__img" src="images/making-as-enquiry.jpg" alt="Making as Enquiry" loading="lazy" />
+              </span>
+              <span class="card__view" style="display:block;margin-top:0.75rem;font-family:var(--mono);font-size:0.8125rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);transition:color 0.3s var(--ease);">View Project →</span>
+            </a>
+          </div>
+
+          <p style="font-family:var(--mono);font-size:0.8125rem;text-transform:uppercase;position:absolute;bottom:24px;right:0;white-space:nowrap;margin:0;letter-spacing:2.5px;width:565px;height:150px;color:rgb(128,126,104);">Click on the dots to view</p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Full-width scrolling ticker -->
+  <!-- Full-bleed scrolling marquee -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker__track">
       <div class="ticker__group">
         <span class="ticker__item">Community Listening</span>
         <span class="ticker__item">Fieldwork</span>
-        <span class="ticker__item">Participatory Research</span>
+        <span class="ticker__item">Embodied Research</span>
         <span class="ticker__item">Tactile Design</span>
-        <span class="ticker__item">Sensory Environments</span>
+        <span class="ticker__item">Observations</span>
         <span class="ticker__item">Human Behaviour</span>
       </div>
       <div class="ticker__group">
         <span class="ticker__item">Community Listening</span>
         <span class="ticker__item">Fieldwork</span>
-        <span class="ticker__item">Participatory Research</span>
+        <span class="ticker__item">Embodied Research</span>
         <span class="ticker__item">Tactile Design</span>
-        <span class="ticker__item">Sensory Environments</span>
+        <span class="ticker__item">Observations</span>
         <span class="ticker__item">Human Behaviour</span>
       </div>
     </div>
   </div>
-
-  <!-- Selected work -->
-  <section class="section" id="work">
-    <div class="wrap">
-      <div class="section__head">
-        <h2 class="section__title">Selected Work</h2>
-        <a class="label" href="work.html">All projects →</a>
-      </div>
-
-      <div class="grid">
-        <a class="project" href="work.html">
-          <div class="project__media">
-            <span class="project__num">01</span>
-            <img src="https://picsum.photos/seed/vocal-local/900/1120?grayscale" alt="Vocal for Local — community fieldwork" loading="lazy" />
-          </div>
-          <div class="project__body">
-            <span class="project__cat">Community Listening</span>
-            <span class="project__year">2026</span>
-          </div>
-          <h3 class="project__name">Vocal for <span class="accent">Local</span><span class="project__arrow">↗</span></h3>
-        </a>
-
-        <a class="project" href="work.html">
-          <div class="project__media">
-            <span class="project__num">02</span>
-            <img src="https://picsum.photos/seed/ergonomics/900/1120?grayscale" alt="Physical Ergonomics — tactile design study" loading="lazy" />
-          </div>
-          <div class="project__body">
-            <span class="project__cat">Tactile Design · Human Behaviour</span>
-            <span class="project__year">2025</span>
-          </div>
-          <h3 class="project__name">Physical Ergonomics<span class="project__arrow">↗</span></h3>
-        </a>
-
-        <a class="project" href="work.html">
-          <div class="project__media">
-            <span class="project__num">03</span>
-            <img src="https://picsum.photos/seed/sound-structure/900/1120?grayscale" alt="Sound as Structure — sensory environments" loading="lazy" />
-          </div>
-          <div class="project__body">
-            <span class="project__cat">Sensory Environments</span>
-            <span class="project__year">2024</span>
-          </div>
-          <h3 class="project__name">Sound as <span class="accent">Structure</span><span class="project__arrow">↗</span></h3>
-        </a>
-
-        <a class="project" href="work.html">
-          <div class="project__media">
-            <span class="project__num">04</span>
-            <img src="https://picsum.photos/seed/making-enquiry/900/1120?grayscale" alt="Making as Enquiry — participatory research" loading="lazy" />
-          </div>
-          <div class="project__body">
-            <span class="project__cat">Participatory Research · Fieldwork</span>
-            <span class="project__year">2023</span>
-          </div>
-          <h3 class="project__name">Making as <span class="accent">Enquiry</span><span class="project__arrow">↗</span></h3>
-        </a>
-      </div>
-    </div>
-  </section>
 
   <footer class="site-footer">
     <div class="wrap">
@@ -193,5 +193,24 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Trigger the staggered entrance once the layout is ready.
+    (function () {
+      var run = function () {
+        var els = document.querySelectorAll(".reveal:not(.is-in)");
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            els.forEach(function (el) { el.classList.add("is-in"); });
+          });
+        });
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", run);
+      } else {
+        run();
+      }
+    })();
+  </script>
 </body>
 </html>
